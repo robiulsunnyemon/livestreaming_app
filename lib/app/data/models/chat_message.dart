@@ -18,13 +18,22 @@ class ChatMessage {
   });
 
   factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    String extractId(dynamic obj) {
+      if (obj == null) return "";
+      if (obj is String) return obj;
+      if (obj is Map) {
+        return (obj['id'] ?? obj['_id'] ?? obj['\$oid'] ?? "").toString();
+      }
+      return obj.toString();
+    }
+
     return ChatMessage(
-      id: json['_id'] ?? json['id'],
-      senderId: json['sender_id'] ?? (json['sender'] is Map ? json['sender']['_id'] : json['sender']),
-      receiverId: json['receiver_id'] ?? (json['receiver'] is Map ? json['receiver']['_id'] : json['receiver']),
-      message: json['message'],
-      imageUrl: json['image_url'],
-      isRead: json['is_read'] ?? false,
+      id: json['_id']?.toString() ?? json['id']?.toString(),
+      senderId: json['sender_id']?.toString() ?? extractId(json['sender']),
+      receiverId: json['receiver_id']?.toString() ?? extractId(json['receiver']),
+      message: json['message']?.toString(),
+      imageUrl: json['image_url']?.toString(),
+      isRead: json['is_read'] == true,
       createdAt: json['created_at'] != null 
           ? DateTime.parse(json['created_at']).toLocal() 
           : DateTime.now(),

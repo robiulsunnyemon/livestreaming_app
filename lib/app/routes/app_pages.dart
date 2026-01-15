@@ -13,12 +13,14 @@ import '../modules/profile/views/profile_view.dart';
 import '../modules/chat/bindings/chat_binding.dart';
 import '../modules/chat/views/chat_view.dart';
 
+import '../modules/chat/views/active_users_view.dart';
+
 part 'app_routes.dart';
 
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.START_LIVE;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -49,6 +51,11 @@ class AppPages {
     GetPage(
       name: _Paths.CHAT,
       page: () => const ChatView(),
+      binding: ChatBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACTIVE_USERS,
+      page: () => const ActiveUsersView(),
       binding: ChatBinding(),
     ),
   ];

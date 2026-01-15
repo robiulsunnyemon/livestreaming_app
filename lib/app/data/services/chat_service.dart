@@ -1,10 +1,36 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/chat_message.dart';
+import '../models/user_model.dart';
 import 'auth_service.dart';
 
 class ChatService {
   final String _baseUrl = AuthService.baseUrl;
+
+  Future<List<UserModel>> getActiveUsers() async {
+    final token = AuthService.to.token;
+    if (token == null) return [];
+
+    try {
+      final url = Uri.parse("$_baseUrl/chat/active-users");
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'accept': 'application/json'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((e) => UserModel.fromJson(e)).toList();
+      }
+      return [];
+    } catch (e) {
+      print("Error fetching active users: $e");
+      return [];
+    }
+  }
 
   Future<List<ChatMessage>> getChatHistory(String receiverId, {int skip = 0, int limit = 50}) async {
     final token = AuthService.to.token;

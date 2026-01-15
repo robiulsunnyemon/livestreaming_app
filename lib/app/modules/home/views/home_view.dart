@@ -16,6 +16,10 @@ class HomeView extends GetView<HomeController> {
         centerTitle: true,
         actions: [
           IconButton(
+            icon: const Icon(Icons.chat_outlined),
+            onPressed: () => Get.toNamed(Routes.ACTIVE_USERS),
+          ),
+          IconButton(
             icon: const Icon(Icons.person_outline),
             onPressed: () => Get.toNamed(Routes.PROFILE),
           )
