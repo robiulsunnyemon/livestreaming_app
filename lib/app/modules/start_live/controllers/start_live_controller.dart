@@ -5,45 +5,55 @@ import 'package:flutter/material.dart';
 import '../../../routes/app_pages.dart';
 
 class StartLiveController extends GetxController {
-  final TextEditingController roomNameController = TextEditingController();
   final StreamingService _streamingService = StreamingService();
+
+  final isPremium = false.obs;
+  final TextEditingController entryFeeController = TextEditingController(text: "0");
+  final TextEditingController titleController = TextEditingController();
+  final selectedCategory = "Entertainment".obs;
+  
+  final List<String> categories = [
+    "Entertainment",
+    "Gaming",
+    "Music",
+    "Talk Show",
+    "Education",
+  ];
 
   final isLoading = false.obs;
 
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
   void onClose() {
-    roomNameController.dispose();
+    entryFeeController.dispose();
+    titleController.dispose();
     super.onClose();
   }
 
   Future<void> startLive() async {
-    if (roomNameController.text.isEmpty) {
-      Get.snackbar("Error", "Please enter a room name");
+    final title = titleController.text.trim();
+    if (title.isEmpty) {
+      Get.snackbar("Error", "Please enter a stream title");
       return;
     }
 
     try {
       isLoading.value = true;
-      String token = await _streamingService.getToken(
-        roomName: roomNameController.text,
-        participantName: "Host", // Assuming user is host or getting name from profile
-        isHost: true,
+      double fee = double.tryParse(entryFeeController.text) ?? 0;
+      
+      final result = await _streamingService.startStream(
+        isPremium: isPremium.value,
+        entryFee: fee,
+        title: title,
+        category: selectedCategory.value,
       );
       
       Get.toNamed(Routes.LIVE_STREAMING, arguments: {
-        "token": token,
-        "room_name": roomNameController.text,
+        "token": result['livekit_token'],
+        "room_name": result['channel_name'], 
         "is_host": true,
+        "session_id": result['live_id'],
+        "title": title,
+        "category": selectedCategory.value,
       });
 
     } catch (e) {
