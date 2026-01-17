@@ -38,8 +38,17 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
+    String extractId(dynamic obj) {
+      if (obj == null) return "";
+      if (obj is String) return obj;
+      if (obj is Map) {
+        return (obj['id'] ?? obj['_id'] ?? obj['\$oid'] ?? "").toString();
+      }
+      return obj.toString();
+    }
+
     return UserModel(
-      id: json['_id'],
+      id: extractId(json['id'] ?? json['_id']),
       firstName: json['first_name'],
       lastName: json['last_name'],
       email: json['email'] ?? "",

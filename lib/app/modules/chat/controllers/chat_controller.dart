@@ -1,20 +1,21 @@
-import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
 import '../../../data/models/chat_message.dart';
 import '../../../data/services/auth_service.dart';
 import '../../../data/services/chat_service.dart';
+import '../../../data/services/chat_socket_service.dart';
 
 class ChatController extends GetxController {
   final ChatService _chatService = ChatService();
+  final ChatSocketService _socketService = Get.find<ChatSocketService>();
   
   final messages = <ChatMessage>[].obs;
   final isLoading = false.obs;
   final TextEditingController messageController = TextEditingController();
   final ScrollController scrollController = ScrollController();
 
-  late WebSocketChannel _channel;
+  StreamSubscription? _messageSubscription;
   
   String receiverId = "";
   String receiverName = "";
@@ -25,9 +26,9 @@ class ChatController extends GetxController {
     super.onInit();
     final args = Get.arguments;
     if (args != null) {
-      receiverId = args['id'];
-      receiverName = args['name'] ?? "User";
-      receiverImage = args['image'];
+      receiverId = args['id']?.toString() ?? "";
+      receiverName = args['name']?.toString() ?? "User";
+      receiverImage = args['image']?.toString();
     }
     
     _initChat();
@@ -36,35 +37,33 @@ class ChatController extends GetxController {
   Future<void> _initChat() async {
     isLoading.value = true;
     try {
-      final profile = await AuthService.to.getMyProfile();
-      if (profile != null) {
-        final currentUserId = profile.id;
-        _connectWebSocket(currentUserId!);
-      }
+      _socketService.connect();
+      _listenToMessages();
       await fetchHistory();
+      await _chatService.markAsRead(receiverId); // Mark as read on open
     } finally {
       isLoading.value = false;
     }
   }
 
-  void _connectWebSocket(String currentUserId) {
-    final token = AuthService.to.token;
-    if (token == null) return;
+  void _listenToMessages() async {
+    final profile = await AuthService.to.getMyProfile();
+    if (profile == null) return;
+    final currentUserId = profile.id;
 
-    final wsUrl = "wss://erronliveapp.mtscorporate.com/api/v1/chat/ws?token=$token";
-    _channel = WebSocketChannel.connect(Uri.parse(wsUrl));
-
-    _channel.stream.listen((data) {
-      final payload = jsonDecode(data);
+    _messageSubscription = _socketService.messages.listen((payload) {
       final msg = ChatMessage.fromJson(payload);
       
       if ((msg.senderId == receiverId && msg.receiverId == currentUserId) ||
           (msg.senderId == currentUserId && msg.receiverId == receiverId)) {
         messages.add(msg);
         _scrollToBottom();
+        
+        // If we are currently in this chat, mark incoming messages as read
+        if (msg.senderId == receiverId) {
+          _chatService.markAsRead(receiverId);
+        }
       }
-    }, onError: (err) {
-      print("WebSocket Error: $err");
     });
   }
 
@@ -87,7 +86,7 @@ class ChatController extends GetxController {
       "message": text,
     };
 
-    _channel.sink.add(jsonEncode(payload));
+    _socketService.sendMessage(payload);
     messageController.clear();
   }
 
@@ -98,7 +97,7 @@ class ChatController extends GetxController {
         "receiver_id": receiverId,
         "image_url": imageUrl,
       };
-      _channel.sink.add(jsonEncode(payload));
+      _socketService.sendMessage(payload);
     }
   }
 
@@ -116,7 +115,7 @@ class ChatController extends GetxController {
 
   @override
   void onClose() {
-    _channel.sink.close();
+    _messageSubscription?.cancel();
     messageController.dispose();
     scrollController.dispose();
     super.onClose();

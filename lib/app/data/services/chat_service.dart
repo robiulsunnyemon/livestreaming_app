@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../models/chat_message.dart';
 import '../models/user_model.dart';
+import '../models/conversation_model.dart';
 import 'auth_service.dart';
 
 class ChatService {
@@ -79,6 +80,49 @@ class ChatService {
     } catch (e) {
       print("Error uploading chat image: $e");
       return null;
+    }
+  }
+
+  Future<List<Conversation>> getConversations() async {
+    final token = AuthService.to.token;
+    if (token == null) return [];
+
+    try {
+      final url = Uri.parse("$_baseUrl/chat/conversations");
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'accept': 'application/json'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
+        return data.map((e) => Conversation.fromJson(e)).toList();
+      }
+      return [];
+    } catch (e) {
+      print("Error fetching conversations: $e");
+      return [];
+    }
+  }
+
+  Future<void> markAsRead(String senderId) async {
+    final token = AuthService.to.token;
+    if (token == null) return;
+
+    try {
+      final url = Uri.parse("$_baseUrl/chat/mark-read/$senderId");
+      await http.put(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'accept': 'application/json'
+        },
+      );
+    } catch (e) {
+      print("Error marking messages as read: $e");
     }
   }
 }

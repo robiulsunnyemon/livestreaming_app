@@ -40,6 +40,7 @@ class ChatMessage {
     );
   }
 
+
   Map<String, dynamic> toJson() {
     return {
       'receiver_id': receiverId,

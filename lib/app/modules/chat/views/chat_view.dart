@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../../data/services/auth_service.dart';
 import '../controllers/chat_controller.dart';
 
 class ChatView extends GetView<ChatController> {
@@ -15,7 +16,7 @@ class ChatView extends GetView<ChatController> {
             CircleAvatar(
               radius: 18,
               backgroundImage: controller.receiverImage != null 
-                  ? NetworkImage(controller.receiverImage!) 
+                  ? NetworkImage(AuthService.getFullUrl(controller.receiverImage)) 
                   : null,
               child: controller.receiverImage == null 
                   ? const Icon(Icons.person) 
@@ -62,7 +63,7 @@ class ChatView extends GetView<ChatController> {
                             ClipRRect(
                               borderRadius: BorderRadius.circular(8),
                               child: Image.network(
-                                msg.imageUrl!,
+                                AuthService.getFullUrl(msg.imageUrl),
                                 width: 200,
                                 fit: BoxFit.cover,
                               ),

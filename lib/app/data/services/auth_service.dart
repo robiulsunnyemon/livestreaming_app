@@ -12,6 +12,13 @@ class AuthService extends GetxService {
   
   // Base URL
   static const String baseUrl = 'https://erronliveapp.mtscorporate.com/api/v1';
+  static const String baseOrigin = 'https://erronliveapp.mtscorporate.com';
+
+  static String getFullUrl(String? path) {
+    if (path == null || path.isEmpty) return "";
+    if (path.startsWith('http')) return path;
+    return "$baseOrigin${path.startsWith('/') ? '' : '/'}$path";
+  }
 
   bool get isLoggedIn => _box.hasData(_tokenKey);
   String? get token => _box.read(_tokenKey);
