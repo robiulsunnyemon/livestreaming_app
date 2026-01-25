@@ -57,7 +57,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
                 label: "Legitimate",
                 color: Colors.greenAccent,
                 onTap: () {
-                  Get.back();
+                  Get.offAllNamed(Routes.DASHBOARD);
                   Get.snackbar("Success", "Glad you enjoyed the stream!", backgroundColor: Colors.green, colorText: Colors.white, snackPosition: SnackPosition.BOTTOM);
                 },
               ),
@@ -79,7 +79,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
         ),
         const SizedBox(height: 24),
         TextButton(
-          onPressed: () => Get.back(),
+          onPressed: () => Get.offAllNamed(Routes.DASHBOARD),
           child: const Text("Skip", style: TextStyle(color: Colors.white54, fontSize: 16)),
         ),
       ],
@@ -164,7 +164,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
                 selectedCategory!, 
                 reportController.text
               );
-              Get.back();
+              Get.offAllNamed(Routes.DASHBOARD);
               Get.snackbar("Reported", "Thank you. We will review this stream.", 
                 backgroundColor: Colors.blueAccent, colorText: Colors.white);
             },
@@ -180,7 +180,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
           width: double.infinity,
           child: TextButton(
             onPressed: (){
-              Get.toNamed(Routes.DASHBOARD);
+              Get.offAllNamed(Routes.DASHBOARD);
             },
             child: const Text("Skip", style: TextStyle(color: Colors.white54, fontSize: 16)),
           ),

@@ -132,11 +132,7 @@ class ExploreView extends GetView<ExploreController> {
 
   Widget _buildLiveCard(LiveStreamModel stream) {
     return GestureDetector(
-      onTap: () {
-        // Navigate to stream join
-        Get.toNamed(Routes.LIVE_STREAMING, arguments: {'isHost': false, 'token': '', 'channelName': stream.channelName});
-        // Note: Real join logic usually happens in controller or middleware, simplified here
-      },
+      onTap: () => controller.joinStream(stream),
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),

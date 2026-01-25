@@ -87,7 +87,7 @@ class AuthController extends GetxController {
     isLoading.value = false;
 
     if (success) {
-      Get.offAllNamed(Routes.DASHBOARD); // Or LOGIN
+      Get.offAllNamed(Routes.LOGIN);
     }
   }
 

@@ -40,10 +40,27 @@ class ExploreController extends GetxController {
       streams.assignAll(fetchedStreams);
     } catch (e) {
       print("Error in ExploreController: $e");
-      // Handle error cleanly or show empty state
       streams.clear();
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  Future<void> joinStream(LiveStreamModel stream) async {
+    if (stream.id == null) return;
+    try {
+      final result = await _streamingService.joinStream(stream.id!);
+      
+      Get.toNamed('/live-streaming', arguments: {
+        "token": result['livekit_token'],
+        "room_name": result['room_name'],
+        "is_host": false,
+        "session_id": stream.id,
+        "title": stream.title,
+        "category": stream.category,
+      });
+    } catch (e) {
+      Get.snackbar("Error", "Could not join stream: $e");
     }
   }
 }
