@@ -33,6 +33,8 @@ import '../modules/finance/views/withdraw_amount_view.dart';
 import '../modules/finance/views/payout_success_view.dart';
 import '../modules/profile/bindings/edit_profile_binding.dart';
 import '../modules/profile/views/edit_profile_view.dart';
+import '../modules/call/bindings/call_binding.dart';
+import '../modules/call/views/call_view.dart';
 
 part 'app_routes.dart';
 
@@ -140,6 +142,11 @@ class AppPages {
       name: _Paths.EDIT_PROFILE,
       page: () => const EditProfileView(),
       binding: EditProfileBinding(),
+    ),
+    GetPage(
+      name: '/call',
+      page: () => const CallView(),
+      binding: CallBinding(),
     ),
   ];
 }

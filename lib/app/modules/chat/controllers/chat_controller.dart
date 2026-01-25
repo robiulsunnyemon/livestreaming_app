@@ -157,6 +157,16 @@ class ChatController extends GetxController {
     _socketService.sendMessage(payload);
   }
 
+  void startCall(String type) {
+    Get.toNamed('/call', arguments: {
+      'caller_id': receiverId,
+      'caller_name': receiverName,
+      'caller_image': receiverImage,
+      'call_type': type,
+      'is_incoming': false,
+    });
+  }
+
   Future<void> sendImage(String path) async {
     final imageUrl = await _chatService.uploadImage(path);
     if (imageUrl != null) {

@@ -59,17 +59,17 @@ class ChatView extends GetView<ChatController> {
             icon: Container(
                padding: const EdgeInsets.all(8),
                decoration: const BoxDecoration(color: Color(0xFF161621), shape: BoxShape.circle),
-               child: const Icon(Icons.call, size: 18, color: Colors.grey)
+               child: const Icon(Icons.call, size: 18, color: Colors.blueAccent)
             ),
-             onPressed: () {},
+             onPressed: () => controller.startCall("audio"),
           ),
           IconButton(
             icon: Container(
                padding: const EdgeInsets.all(8),
                decoration: const BoxDecoration(color: Color(0xFF161621), shape: BoxShape.circle),
-               child: const Icon(Icons.videocam, size: 18, color: Colors.grey)
+               child: const Icon(Icons.videocam, size: 18, color: Colors.blueAccent)
             ),
-             onPressed: () {},
+             onPressed: () => controller.startCall("video"),
           ),
           const SizedBox(width: 10),
         ],

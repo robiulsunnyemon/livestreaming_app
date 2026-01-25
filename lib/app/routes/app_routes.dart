@@ -23,6 +23,7 @@ abstract class Routes {
   static const WITHDRAW_AMOUNT = _Paths.WITHDRAW_AMOUNT;
   static const PAYOUT_SUCCESS = _Paths.PAYOUT_SUCCESS;
   static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const CALL = _Paths.CALL;
 }
 
 abstract class _Paths {
@@ -47,4 +48,5 @@ abstract class _Paths {
   static const WITHDRAW_AMOUNT = '/withdraw-amount';
   static const PAYOUT_SUCCESS = '/payout-success';
   static const EDIT_PROFILE = '/edit-profile';
+  static const CALL = '/call';
 }
