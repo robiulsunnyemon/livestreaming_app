@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:erron_live_app/app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -103,110 +104,122 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                     child: Row(
                       children: [
                         // Host Profile Card (Glassmorphism)
-                        Obx(() => Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: Colors.black.withOpacity(0.3),
-                            borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.white24),
-                          ),
+                        Expanded(
                           child: Row(
-                            mainAxisSize: MainAxisSize.min,
                             children: [
-                              CircleAvatar(
-                                radius: 18,
-                                backgroundColor: Colors.pinkAccent,
-                                child: CircleAvatar(
-                                  radius: 17,
-                                  backgroundColor: Colors.grey,
-                                  backgroundImage: controller.hostProfileImage.value.isNotEmpty
-                                      ? NetworkImage(AuthService.getFullUrl(controller.hostProfileImage.value))
-                                      : null,
-                                  child: controller.hostProfileImage.value.isEmpty
-                                      ? const Icon(Icons.person, color: Colors.white, size: 20)
-                                      : null,
-                                ),
-                              ),
-                              const SizedBox(width: 8),
-                              Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    controller.hostFullName.value,
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
+                              Flexible(
+                                child: Obx(() => Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: Colors.black.withOpacity(0.3),
+                                    borderRadius: BorderRadius.circular(30),
+                                    border: Border.all(color: Colors.white24),
                                   ),
-                                  const SizedBox(height: 2),
-                                  // Dynamic Progress Bar
-                                  Container(
-                                    width: 80,
-                                    height: 4,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(2),
-                                      color: Colors.pinkAccent, // Shady part
-                                    ),
-                                    child: Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Container(
-                                        width: 80 * (controller.hostLegit.value / (controller.hostLegit.value + controller.hostShady.value == 0 ? 100 : controller.hostLegit.value + controller.hostShady.value)),
-                                        height: 4,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(2),
-                                          color: Colors.greenAccent, // Legit part
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 14,
+                                        backgroundColor: AppColors.tertiary,
+                                        child: CircleAvatar(
+                                          radius: 13,
+                                          backgroundColor: Colors.grey,
+                                          backgroundImage: controller.hostProfileImage.value.isNotEmpty
+                                              ? NetworkImage(AuthService.getFullUrl(controller.hostProfileImage.value))
+                                              : null,
+                                          child: controller.hostProfileImage.value.isEmpty
+                                              ? const Icon(Icons.person, color: Colors.white, size: 20)
+                                              : null,
                                         ),
                                       ),
-                                    ),
+                                      const SizedBox(width: 6),
+                                      Flexible(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              controller.hostFullName.value,
+                                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 8),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                            ),
+                                            const SizedBox(height: 2),
+                                            // Dynamic Progress Bar
+                                            Container(
+                                              width: 70,
+                                              height: 4,
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(2),
+                                                color: AppColors.tertiary,// Shady part
+                                              ),
+                                              child: Align(
+                                                alignment: Alignment.centerLeft,
+                                                child: Container(
+                                                  width: 70 * (controller.hostLegit.value / (controller.hostLegit.value + controller.hostShady.value == 0 ? 100 : controller.hostLegit.value + controller.hostShady.value)),
+                                                  height: 4,
+                                                  decoration: BoxDecoration(
+                                                    borderRadius: BorderRadius.circular(3),
+                                                    color: Colors.greenAccent, // Legit part
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(width: 6),
+                                      // Follow/Unfollow Button
+                                      if (!controller.isHost)
+                                        GestureDetector(
+                                          onTap: controller.toggleFollow,
+                                          child: Container(
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.tertiary,
+                                              borderRadius: BorderRadius.circular(20),
+                                            ),
+                                            child: Text(
+                                              controller.isFollowing.value ? "Unfollow" : "Follow",
+                                              style: const TextStyle(color: Colors.white, fontSize: 7, fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      const SizedBox(width: 4),
+                                    ],
                                   ),
-                                ],
+                                )),
                               ),
-                              const SizedBox(width: 12),
-                              // Follow/Unfollow Button
-                              if (!controller.isHost)
-                                GestureDetector(
-                                  onTap: controller.toggleFollow,
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: Colors.pinkAccent,
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      controller.isFollowing.value ? "Unfollow" : "Follow",
-                                      style: const TextStyle(color: Colors.white, fontSize: 12, fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                ),
-                              const SizedBox(width: 4),
+                              const SizedBox(width: 8),
+                              // 3s Preview Countdown Badge
+                              Obx(() {
+                                 final isPreview = controller.isPreviewMode.value;
+                                 final time = controller.countdown.value;
+                                 if (isPreview) {
+                                   return Container(
+                                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                                     decoration: BoxDecoration(
+                                       color: Colors.yellowAccent,
+                                       borderRadius: BorderRadius.circular(20),
+                                     ),
+                                     child: Text(
+                                       "Preview ${time}s",
+                                       style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 10),
+                                     ),
+                                   );
+                                 }
+                                 return const SizedBox.shrink();
+                              }),
+                              const Spacer(),
                             ],
                           ),
-                        )),
-                        const SizedBox(width: 10),
-                        // 3s Preview Countdown Badge
-                        Obx(() {
-                           final isPreview = controller.isPreviewMode.value;
-                           final time = controller.countdown.value;
-                           if (isPreview) {
-                             return Container(
-                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                               decoration: BoxDecoration(
-                                 color: Colors.yellowAccent,
-                                 borderRadius: BorderRadius.circular(20),
-                               ),
-                               child: Text(
-                                 "Preview ${time}s",
-                                 style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),
-                               ),
-                             );
-                           }
-                           return const SizedBox.shrink();
-                        }),
-                        const Spacer(),
+                        ),
                         CircleAvatar(
-                          radius: 18,
-                          backgroundColor: Colors.redAccent.withOpacity(0.8),
+                          radius: 15,
+                          backgroundColor: AppColors.tertiary,
                           child: IconButton(
                             padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.close, color: Colors.white, size: 20),
+                            icon: const Icon(Icons.close, color: Colors.white, size: 16),
                             onPressed: controller.leaveRoom,
                           ),
                         )
@@ -214,6 +227,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                     ),
                   ),
 
+                  const Spacer(),
                   // Payment Overlay (When blurred)
                   Obx(() {
                     final premium = controller.isPremium.value;
@@ -227,14 +241,14 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
 
                     return Container(
                       margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
-                      padding: const EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.8),
+                        color: Colors.white.withOpacity(0.1),
                         borderRadius: BorderRadius.circular(24),
                         border: Border.all(color: Colors.white24, width: 1),
-                        boxShadow: [
-                          BoxShadow(color: Colors.purple.withOpacity(0.4), blurRadius: 30, spreadRadius: 5)
-                        ]
+                        // boxShadow: [
+                        //   BoxShadow(color: Colors.purple.withOpacity(0.4), blurRadius: 30, spreadRadius: 5)
+                        // ]
                       ),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -255,49 +269,51 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                             ),
                           ),
                           const SizedBox(height: 16),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.05),
-                              borderRadius: BorderRadius.circular(16),
-                              border: Border.all(color: Colors.white10)
-                            ),
-                            child: Row(
-                              children: [
-                                CircleAvatar(
-                                  radius: 18,
-                                  backgroundColor: Colors.purpleAccent.withOpacity(0.2),
-                                  child: const Icon(Icons.bolt, color: Colors.purpleAccent, size: 24),
-                                ),
-                                const SizedBox(width: 15),
-                                Text(
-                                  "${controller.entryFee.value.toInt()}", 
-                                  style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
-                                ),
-                                const Spacer(),
-                                const Icon(Icons.unfold_more, color: Colors.white54, size: 24),
-                              ],
+                          GestureDetector(
+                            onTap: controller.payEntryFee,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(0.05),
+                                borderRadius: BorderRadius.circular(16),
+                                border: Border.all(color: Colors.white10)
+                              ),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 18,
+                                    backgroundColor: Colors.purpleAccent.withOpacity(0.2),
+                                    child: const Icon(Icons.bolt, color: Colors.purpleAccent, size: 24),
+                                  ),
+                                  const SizedBox(width: 15),
+                                  Text(
+                                    "${controller.entryFee.value.toInt()}",
+                                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                                  ),
+
+                                ],
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 24),
-                          ElevatedButton(
-                            onPressed: controller.payEntryFee,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.purpleAccent,
-                              foregroundColor: Colors.white,
-                              minimumSize: const Size(double.infinity, 55),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                              elevation: 10,
-                              shadowColor: Colors.purpleAccent.withOpacity(0.5)
-                            ),
-                            child: const Text("Unlock to View", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                          )
+                          // const SizedBox(height: 15),
+                          // ElevatedButton(
+                          //   onPressed: controller.payEntryFee,
+                          //   style: ElevatedButton.styleFrom(
+                          //     backgroundColor: Colors.purpleAccent,
+                          //     foregroundColor: Colors.white,
+                          //     minimumSize: const Size(double.infinity, 35),
+                          //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          //     elevation: 10,
+                          //     shadowColor: Colors.purpleAccent.withOpacity(0.5)
+                          //   ),
+                          //   child: const Text("Unlock to View", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14)),
+                          // )
                         ],
                       ),
                     );
                   }),
 
-                  const Spacer(),
+
 
                   // Comments Area
                   Expanded(
@@ -322,8 +338,8 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                   margin: const EdgeInsets.symmetric(vertical: 4),
                                   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                   // decoration: BoxDecoration(
-                                  //   color: Colors.black38,
-                                  //   borderRadius: BorderRadius.circular(8)
+                                  //   color: Colors.white,
+                                  //    borderRadius: BorderRadius.circular(8)
                                   // ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
@@ -392,7 +408,9 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                                       border: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(20),
-                                        borderSide: BorderSide.none
+                                        borderSide: BorderSide(
+                                          color: Colors.white
+                                        )
                                       ),
                                       suffixIcon: GestureDetector(
                                         onTap: isLocked ? controller.payEntryFee : controller.sendComment,
