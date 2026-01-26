@@ -375,27 +375,29 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                 const SizedBox(width: 8),
                               ],
 
-                              // Like Button
-                              GestureDetector(
-                                onTap: controller.sendLike,
-                                child: Container(
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: const BoxDecoration(
-                                    color: Colors.pinkAccent,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const Icon(Icons.favorite, color: Colors.white, size: 20),
-                                      Obx(() => Text(
-                                        "${controller.totalLikes}", 
-                                        style: const TextStyle(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold)
-                                      ))
-                                    ],
+                              if (!controller.isHost) ...[
+                                // Like Button
+                                GestureDetector(
+                                  onTap: controller.sendLike,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(8),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.pinkAccent,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        const Icon(Icons.favorite, color: Colors.white, size: 20),
+                                        Obx(() => Text(
+                                          "${controller.totalLikes}", 
+                                          style: const TextStyle(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold)
+                                        ))
+                                      ],
+                                    )
                                   )
-                                )
-                              ),
+                                ),
+                              ],
                             ],
                           ),
 
