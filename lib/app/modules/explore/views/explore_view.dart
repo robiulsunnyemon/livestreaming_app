@@ -185,41 +185,67 @@ class ExploreView extends GetView<ExploreController> {
                    Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: AppColors.accent,
+                      color: AppColors.tertiary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Text("Live", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                   ),
-                   Row(
+                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryPrimary,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
                       children: [
-                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
-                              const SizedBox(width: 4),
-                              Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: stream.isPremium ? AppColors.warning : AppColors.yellow,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                              stream.isPremium ? "${stream.entryFee}" : "Free", 
-                              style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
-                          ),
-                        ),
+                        const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
+                        const SizedBox(width: 4),
+                        Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                       ],
-                   )
+                    ),
+                  ),
+                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: stream.isPremium ? AppColors.warning : AppColors.warning,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                        stream.isPremium ? "${stream.entryFee}" : "Free",
+                        style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
+                    ),
+                  ),
+                   // Row(
+                   //    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                   //    children: [
+                   //       Container(
+                   //        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                   //        decoration: BoxDecoration(
+                   //          color: AppColors.secondaryPrimary,
+                   //          borderRadius: BorderRadius.circular(8),
+                   //        ),
+                   //        child: Row(
+                   //          children: [
+                   //            const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
+                   //            const SizedBox(width: 4),
+                   //            Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                   //          ],
+                   //        ),
+                   //      ),
+                   //      const SizedBox(width: 6),
+                   //      Container(
+                   //        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                   //        decoration: BoxDecoration(
+                   //          color: stream.isPremium ? AppColors.warning : AppColors.yellow,
+                   //          borderRadius: BorderRadius.circular(8),
+                   //        ),
+                   //        child: Text(
+                   //            stream.isPremium ? "${stream.entryFee}" : "Free",
+                   //            style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
+                   //        ),
+                   //      ),
+                   //    ],
+                   // )
                 ],
               ),
             ),
@@ -238,7 +264,7 @@ class ExploreView extends GetView<ExploreController> {
                       Container(
                         padding: const EdgeInsets.all(1),
                         decoration: const BoxDecoration(
-                          color: AppColors.accent,
+                          color: AppColors.tertiary,
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
@@ -297,7 +323,7 @@ class ExploreView extends GetView<ExploreController> {
                             flex: shady.toInt(),
                              child: Container(
                                decoration: BoxDecoration(
-                                color: AppColors.accent,
+                                color: AppColors.tertiary,
                                 borderRadius: BorderRadius.horizontal(
                                   right: const Radius.circular(3),
                                   left: Radius.circular(legit == 0 ? 3 : 0),
@@ -313,7 +339,7 @@ class ExploreView extends GetView<ExploreController> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text("Legit: $legit%", style: TextStyle(color: Colors.grey.shade400, fontSize: 9)),
-                      Text("Shady: $shady%", style: TextStyle(color: Colors.redAccent, fontSize: 9)),
+                      Text("Shady: $shady%", style: TextStyle(color: AppColors.error, fontSize: 9)),
                     ],
                   )
                 ],

@@ -12,13 +12,14 @@ class AppColors {
   static const Color primary = Color(0xFF4C4DDC); // Blurple
   static const Color secondaryPrimary = Color(0xFF2E3FE7); // Vibrant Blue
   static const Color tertiary = Color(0xFFDD2C91);
+  static const Color secondaryTertiary = Color(0xFFDDD12C);
   static const Color accent = Color(0xFFFF005C);  // Pink/Live
   static const Color purple = Color(0xFF8F00FF);
   
   // Status Colors
   static const Color success = Color(0xFF2ECC71); // Online Green
   static const Color vibrantSuccess = Color(0xFF00E676); // Progress Bar Green
-  static const Color warning = Color(0xFFFFD700); // Gold
+  static const Color warning = Color(0xFFDDD12C); // Gold
   static const Color yellow = Color(0xFFFFFF00); 
   static const Color error = Color(0xFFFF4B4B);   // Red
 

@@ -174,14 +174,6 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
-      // Bottom Bar is likely handled by a main layout wrapper, but we keep the FAB for starting live if needed
-      // Or remove it if the design implies a different navigation structure. 
-      // Keeping it for functionality but styling it.
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Get.toNamed(Routes.START_LIVE),
-        backgroundColor: AppColors.primary,
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
     );
   }
 
@@ -254,41 +246,66 @@ class HomeView extends GetView<HomeController> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: const Color(0xFFFF005C),
+                      color: AppColors.tertiary,
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Text("Live", style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                   ),
-                   Row(
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondaryPrimary, // Blurple tag for view count
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Row(
                       children: [
-                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: AppColors.primary, // Blurple tag for view count
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Row(
-                            children: [
-                              const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
-                              const SizedBox(width: 4),
-                              Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ),
-                        const SizedBox(width: 6),
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(
-                            color: stream.isPremium ? const Color(0xFFFFD700) : const Color(0xFFFFFF00), // Gold/Yellow
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Text(
-                              stream.isPremium ? "${stream.entryFee}" : "Free", 
-                              style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
-                          ),
-                        ),
+                        const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
+                        const SizedBox(width: 4),
+                        Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
                       ],
-                   )
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: stream.isPremium ? AppColors.warning :  AppColors.warning, // Gold/Yellow
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                        stream.isPremium ? "${stream.entryFee}" : "Free",
+                        style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
+                    ),
+                  ),
+                   // Row(
+                   //    children: [
+                   //       Container(
+                   //        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                   //        decoration: BoxDecoration(
+                   //          color: AppColors.primary, // Blurple tag for view count
+                   //          borderRadius: BorderRadius.circular(8),
+                   //        ),
+                   //        child: Row(
+                   //          children: [
+                   //            const Icon(Icons.remove_red_eye, color: Colors.white, size: 10),
+                   //            const SizedBox(width: 4),
+                   //            Text("${stream.totalViews}", style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+                   //          ],
+                   //        ),
+                   //      ),
+                   //      const SizedBox(width: 6),
+                   //      Container(
+                   //        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                   //        decoration: BoxDecoration(
+                   //          color: stream.isPremium ? const Color(0xFFFFD700) : const Color(0xFFFFFF00), // Gold/Yellow
+                   //          borderRadius: BorderRadius.circular(8),
+                   //        ),
+                   //        child: Text(
+                   //            stream.isPremium ? "${stream.entryFee}" : "Free",
+                   //            style: const TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)
+                   //        ),
+                   //      ),
+                   //    ],
+                   // )
                 ],
               ),
             ),
@@ -307,7 +324,7 @@ class HomeView extends GetView<HomeController> {
                       Container(
                         padding: const EdgeInsets.all(1),
                         decoration: const BoxDecoration(
-                          color: Color(0xFFFF005C),
+                          color: AppColors.tertiary,
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
