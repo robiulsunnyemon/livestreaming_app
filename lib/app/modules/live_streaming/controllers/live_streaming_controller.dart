@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -29,6 +28,13 @@ class LiveStreamingController extends GetxController {
   
   final TextEditingController commentController = TextEditingController();
 
+  // Premium Preview State
+  final isPremium = false.obs;
+  final hasPaid = false.obs;
+  final isPreviewMode = false.obs;
+  final countdown = 3.obs;
+  final entryFee = 0.0.obs;
+  
   // TODO: Replace with your actual LiveKit Server URL
   final String _liveKitUrl = "wss://liveworld-l78cuzu0.livekit.cloud";
 
@@ -58,9 +64,62 @@ class LiveStreamingController extends GetxController {
       sessionId = args['session_id'] ?? ""; 
       streamTitle = args['title'] ?? "";
       streamCategory = args['category'] ?? "";
+      
+      isPremium.value = args['is_premium'] ?? false;
+      hasPaid.value = args['has_paid'] ?? false;
+      entryFee.value = (args['entry_fee'] ?? 0).toDouble();
     }
     connect();
     _fetchCurrentUser();
+    _startPreviewTimer();
+  }
+
+  void _startPreviewTimer() {
+    if (isHost || !isPremium.value || hasPaid.value) {
+      isPreviewMode.value = false;
+      return;
+    }
+
+    isPreviewMode.value = true;
+    countdown.value = 3;
+    
+    debugPrint("Starting 3s preview timer...");
+    
+    Future.doWhile(() async {
+      await Future.delayed(const Duration(seconds: 1));
+      if (countdown.value > 1) {
+        countdown.value--;
+        return true;
+      } else {
+        countdown.value = 0;
+        isPreviewMode.value = false;
+        debugPrint("Preview ended. Applying blur.");
+        return false;
+      }
+    });
+  }
+
+  Future<void> payEntryFee() async {
+    if (sessionId.isEmpty) return;
+    
+    try {
+      Get.dialog(const Center(child: CircularProgressIndicator()), barrierDismissible: false);
+      final response = await _streamingService.payStreamFee(sessionId);
+      Get.back(); // Close loading
+
+      if (response != null && response['message'] == "Payment successful" || response['message'] == "Already paid") {
+        hasPaid.value = true;
+        Get.snackbar("Success", "Stream unlocked successfully!", 
+          backgroundColor: Colors.green, colorText: Colors.white);
+      } else {
+        Get.snackbar("Error", "Payment failed. Please try again.",
+          backgroundColor: Colors.red, colorText: Colors.white);
+      }
+    } catch (e) {
+      Get.back();
+      Get.snackbar("Error", "Insufficient coins or payment failed.",
+        backgroundColor: Colors.red, colorText: Colors.white);
+    }
   }
 
   Future<void> _fetchCurrentUser() async {
@@ -151,6 +210,12 @@ class LiveStreamingController extends GetxController {
     listener.on<RoomDisconnectedEvent>((event) {
       print("Room Disconnected: ${event.reason}");
       if (!isHost && sessionId.isNotEmpty) {
+          // If it's a premium stream and hasn't been paid for, skip the review dialog
+          if (isPremium.value && !hasPaid.value) {
+             Get.back();
+             return;
+          }
+
           Get.bottomSheet(
             StreamReviewDialog(controller: this),
             isScrollControlled: true,
@@ -214,6 +279,13 @@ class LiveStreamingController extends GetxController {
     final text = commentController.text.trim();
     if (text.isEmpty) return;
     
+    // Check payment status
+    if (!isHost && isPremium.value && !hasPaid.value) {
+      Get.snackbar("Notice", "Unlock to chat", 
+        backgroundColor: Colors.amber, colorText: Colors.black);
+      return;
+    }
+    
     // 1. Call API
     // If sessionId is missing, we can't call API effectively unless we assume roomName is unique enough or lookup
     if (sessionId.isNotEmpty) {
@@ -247,6 +319,13 @@ class LiveStreamingController extends GetxController {
   }
 
   Future<void> sendLike() async {
+    // Check payment status
+    if (!isHost && isPremium.value && !hasPaid.value) {
+      Get.snackbar("Notice", "Please unlock the stream to like", 
+        backgroundColor: Colors.amber, colorText: Colors.black);
+      return;
+    }
+
     if (sessionId.isNotEmpty) {
        try {
           await _streamingService.sendLike(sessionId);
@@ -264,6 +343,13 @@ class LiveStreamingController extends GetxController {
   }
 
   Future<void> sendGift(double amount) async {
+    // Check payment status
+    if (!isHost && isPremium.value && !hasPaid.value) {
+      Get.snackbar("Notice", "Please unlock the stream to send gifts", 
+        backgroundColor: Colors.amber, colorText: Colors.black);
+      return;
+    }
+
     if (sessionId.isEmpty) return;
     
     try {
@@ -327,7 +413,7 @@ class LiveStreamingController extends GetxController {
          // Then find the video track
          var track = room!.localParticipant!.videoTrackPublications
              .firstWhereOrNull((pub) => pub.track is LocalVideoTrack)
-             ?.track as LocalVideoTrack?;
+             ?.track;
              
          if (track != null) {
             localVideoTrack.value = track;
@@ -354,6 +440,12 @@ class LiveStreamingController extends GetxController {
       print("Disconnected from LiveKit room");
       
       if (!isHost && sessionId.isNotEmpty) {
+        // If it's a premium stream and hasn't been paid for, skip the review dialog
+        if (isPremium.value && !hasPaid.value) {
+           Get.back();
+           return;
+        }
+
         // Show review dialog for viewers
         Get.bottomSheet(
           StreamReviewDialog(controller: this),

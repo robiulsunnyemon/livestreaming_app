@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
@@ -70,10 +71,23 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                 );
               }
 
-              return VideoTrackRenderer(
-                mainTrack,
-                fit: VideoViewFit.cover,
-              );
+              return Obx(() {
+                 bool shouldBlur = controller.isPremium.value && 
+                                  !controller.hasPaid.value && 
+                                  !controller.isPreviewMode.value && 
+                                  !controller.isHost;
+                                  
+                 return ImageFiltered(
+                   imageFilter: ImageFilter.blur(
+                     sigmaX: shouldBlur ? 15 : 0, 
+                     sigmaY: shouldBlur ? 15 : 0
+                   ),
+                   child: VideoTrackRenderer(
+                     mainTrack!,
+                     fit: VideoViewFit.cover,
+                   ),
+                 );
+              });
             }),
           ),
 
@@ -113,18 +127,30 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                     ),
                                   ],
                                 ),
-                                // if (controller.streamCategory.isNotEmpty)
-                                //   Padding(
-                                //     padding: const EdgeInsets.only(left: 32.0),
-                                //     child: Text(
-                                //       controller.streamCategory,
-                                //       style: const TextStyle(color: Colors.white70, fontSize: 10),
-                                //     ),
-                                //   ),
                               ],
                             ),
                           ),
                         ),
+                        const SizedBox(width: 10),
+                        // 3s Preview Countdown Badge
+                        Obx(() {
+                           final isPreview = controller.isPreviewMode.value;
+                           final time = controller.countdown.value;
+                           if (isPreview) {
+                             return Container(
+                               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                               decoration: BoxDecoration(
+                                 color: Colors.yellowAccent,
+                                 borderRadius: BorderRadius.circular(20),
+                               ),
+                               child: Text(
+                                 "Preview ${time}s",
+                                 style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 12),
+                               ),
+                             );
+                           }
+                           return const SizedBox.shrink();
+                        }),
                         const Spacer(),
                         CircleAvatar(
                           backgroundColor: Colors.black26,
@@ -141,6 +167,89 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                       ],
                     ),
                   ),
+
+                  // Payment Overlay (When blurred)
+                  Obx(() {
+                    final premium = controller.isPremium.value;
+                    final paid = controller.hasPaid.value;
+                    final preview = controller.isPreviewMode.value;
+                    final isHost = controller.isHost;
+
+                    bool showPayment = premium && !paid && !preview && !isHost;
+                    
+                    if (!showPayment) return const SizedBox.shrink();
+
+                    return Container(
+                      margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
+                      padding: const EdgeInsets.all(24),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(24),
+                        border: Border.all(color: Colors.white24, width: 1),
+                        boxShadow: [
+                          BoxShadow(color: Colors.purple.withOpacity(0.4), blurRadius: 30, spreadRadius: 5)
+                        ]
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 2),
+                              decoration: BoxDecoration(
+                                color: Colors.white10,
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(color: Colors.white24)
+                              ),
+                              child: const Text(
+                                "Gift token",
+                                style: TextStyle(color: Colors.white70, fontSize: 12),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                            decoration: BoxDecoration(
+                              color: Colors.white.withOpacity(0.05),
+                              borderRadius: BorderRadius.circular(16),
+                              border: Border.all(color: Colors.white10)
+                            ),
+                            child: Row(
+                              children: [
+                                CircleAvatar(
+                                  radius: 18,
+                                  backgroundColor: Colors.purpleAccent.withOpacity(0.2),
+                                  child: const Icon(Icons.bolt, color: Colors.purpleAccent, size: 24),
+                                ),
+                                const SizedBox(width: 15),
+                                Text(
+                                  "${controller.entryFee.value.toInt()}", 
+                                  style: const TextStyle(color: Colors.white, fontSize: 32, fontWeight: FontWeight.bold),
+                                ),
+                                const Spacer(),
+                                const Icon(Icons.unfold_more, color: Colors.white54, size: 24),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: controller.payEntryFee,
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.purpleAccent,
+                              foregroundColor: Colors.white,
+                              minimumSize: const Size(double.infinity, 55),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                              elevation: 10,
+                              shadowColor: Colors.purpleAccent.withOpacity(0.5)
+                            ),
+                            child: const Text("Unlock to View", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
 
                   const Spacer(),
 
@@ -219,58 +328,69 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                           Row(
                             children: [
                               Expanded(
-                                child: TextField(
-                                  controller: controller.commentController,
-                                  style: const TextStyle(color: Colors.white),
-                                  decoration: InputDecoration(
-                                    hintText: "Say hi...",
-                                    hintStyle: const TextStyle(color: Colors.white70),
-                                    filled: true,
-                                    fillColor: Colors.black45,
-                                    isDense: true,
-                                    contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                                    border: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                      borderSide: BorderSide.none
+                                child: Obx(() {
+                                  final premium = controller.isPremium.value;
+                                  final paid = controller.hasPaid.value;
+                                  bool isLocked = !controller.isHost && premium && !paid;
+                                  return TextField(
+                                    controller: controller.commentController,
+                                    readOnly: isLocked,
+                                    onTap: isLocked ? controller.payEntryFee : null,
+                                    style: const TextStyle(color: Colors.white),
+                                    decoration: InputDecoration(
+                                      hintText: isLocked ? "Unlock to chat" : "Say hi...",
+                                      hintStyle: const TextStyle(color: Colors.white70),
+                                      filled: true,
+                                      fillColor: Colors.black45,
+                                      isDense: true,
+                                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                      border: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                        borderSide: BorderSide.none
+                                      ),
+                                      suffixIcon: GestureDetector(
+                                        onTap: isLocked ? controller.payEntryFee : controller.sendComment,
+                                        child: Icon(
+                                          isLocked ? Icons.lock : Icons.send, 
+                                          color: isLocked ? Colors.amber : Colors.blueAccent
+                                        ),
+                                      )
                                     ),
-                                    suffixIcon: IconButton(
-                                      icon: const Icon(Icons.send, color: Colors.blueAccent),
-                                      onPressed: controller.sendComment,
-                                    )
-                                  ),
-                                  onSubmitted: (_) => controller.sendComment(),
-                                ),
+                                    onSubmitted: isLocked ? (val) => controller.payEntryFee() : (_) => controller.sendComment(),
+                                  );
+                                }),
                               ),
-                              const SizedBox(width: 10),
+                              const SizedBox(width: 8),
                               
                               if (!controller.isHost) ...[
                                 // Gift Button
                                 GestureDetector(
                                   onTap: () => _showGiftSheet(context),
                                   child: const CircleAvatar(
-                                    radius: 22,
+                                    radius: 20,
                                     backgroundColor: Colors.purpleAccent,
-                                    child: Icon(Icons.card_giftcard, color: Colors.white),
+                                    child: Icon(Icons.card_giftcard, color: Colors.white, size: 20),
                                   ),
                                 ),
-                                const SizedBox(width: 10),
+                                const SizedBox(width: 8),
                               ],
 
                               // Like Button
                               GestureDetector(
                                 onTap: controller.sendLike,
                                 child: Container(
-                                  padding: const EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(8),
                                   decoration: const BoxDecoration(
                                     color: Colors.pinkAccent,
                                     shape: BoxShape.circle,
                                   ),
                                   child: Column(
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      const Icon(Icons.favorite, color: Colors.white),
+                                      const Icon(Icons.favorite, color: Colors.white, size: 20),
                                       Obx(() => Text(
                                         "${controller.totalLikes}", 
-                                        style: const TextStyle(fontSize: 10, color: Colors.white, fontWeight: FontWeight.bold)
+                                        style: const TextStyle(fontSize: 9, color: Colors.white, fontWeight: FontWeight.bold)
                                       ))
                                     ],
                                   )

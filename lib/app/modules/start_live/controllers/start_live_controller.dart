@@ -55,6 +55,9 @@ class StartLiveController extends GetxController {
         "session_id": result['live_id'],
         "title": title,
         "category": selectedCategory.value,
+        "is_premium": isPremium.value,
+        "has_paid": true,
+        "entry_fee": result['entry_fee'] ?? 0.0,
       });
 
     } catch (e) {

@@ -79,6 +79,38 @@ class StreamingService {
     }
   }
 
+  Future<Map<String, dynamic>> payStreamFee(String sessionId) async {
+    final url = Uri.parse("$_baseUrl/streaming/pay/$sessionId");
+    final token = AuthService.to.token;
+
+    if (token == null) {
+      throw Exception("Authentication Required");
+    }
+
+    try {
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'accept': 'application/json'
+        },
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        try {
+          final err = jsonDecode(response.body);
+          throw Exception(err['detail'] ?? "Payment failed");
+        } catch (_) {
+          throw Exception("Payment failed: ${response.statusCode}");
+        }
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   Future<Map<String, dynamic>> sendGift(String sessionId, double amount) async {
     final url = Uri.parse("$_baseUrl/streaming/gifts/send");
     final token = AuthService.to.token;

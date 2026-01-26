@@ -63,6 +63,9 @@ class ExploreController extends GetxController {
         "session_id": stream.id,
         "title": stream.title,
         "category": stream.category,
+        "is_premium": result['is_premium'] ?? false,
+        "has_paid": result['has_paid'] ?? false,
+        "entry_fee": result['entry_fee'] ?? 0.0,
       });
     } catch (e) {
       Get.snackbar("Error", "Could not join stream: $e");
