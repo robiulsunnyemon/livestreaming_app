@@ -345,6 +345,32 @@ class AuthService extends GetxService {
     }
   }
 
+  Future<Map<String, dynamic>?> createStripePaymentIntent(double amount, int tokens) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/finance/stripe/create-payment-intent'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'amount': amount,
+          'tokens': tokens,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        Get.snackbar("Error", "Failed to create payment: ${response.body}");
+        return null;
+      }
+    } catch (e) {
+      Get.snackbar("Error", "Payment Intent Error: $e");
+      return null;
+    }
+  }
+
   MediaType _getMediaType(String filePath) {
     final ext = filePath.split('.').last.toLowerCase();
     if (ext == 'png') return MediaType('image', 'png');

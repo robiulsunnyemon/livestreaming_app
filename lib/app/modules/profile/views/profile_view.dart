@@ -517,7 +517,7 @@ class ProfileView extends GetView<ProfileController> {
           const Text("Tokens", style: TextStyle(color: Colors.grey, fontSize: 12)),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () => controller.buyTokens(tokens, price),
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.secondaryPrimary, // Blue
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
