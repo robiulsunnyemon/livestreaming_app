@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1074776985741",
+    "project_id": "instalive-291d9",
+    "storage_bucket": "instalive-291d9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074776985741:android:5dc1fb550e2988f544d2c4",
+        "android_client_info": {
+          "package_name": "com.example.erron_live_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074776985741-a8jo30hbkht6lv0733are87c12hqjso1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACnboig54WtnpsDc8nOKVkUkZOs08Kblo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074776985741-a8jo30hbkht6lv0733are87c12hqjso1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
