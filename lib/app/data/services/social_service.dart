@@ -62,4 +62,27 @@ class SocialService {
       return false;
     }
   }
+
+  Future<Map<String, dynamic>?> getPublicProfile(String targetId) async {
+    final url = Uri.parse("$_baseUrl/social/profile/$targetId");
+    final token = AuthService.to.token;
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          if (token != null) 'Authorization': 'Bearer $token',
+          'accept': 'application/json'
+        },
+      );
+      print("Get Public Profile Response: ${response.statusCode} - ${response.body}");
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      }
+      return null;
+    } catch (e) {
+      print("Get Public Profile Exception: $e");
+      return null;
+    }
+  }
 }
