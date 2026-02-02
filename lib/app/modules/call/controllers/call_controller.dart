@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:ui';
 import '../../../data/services/call_service.dart';
 import '../../../data/services/chat_socket_service.dart';
 import '../../../core/utils/snackbar_helper.dart';
@@ -25,6 +26,11 @@ class CallController extends GetxController {
   
   final isMicEnabled = true.obs;
   final isCameraEnabled = true.obs;
+  final isSpeakerphoneOn = true.obs;
+  final currentCameraPosition = CameraPosition.front.obs;
+  
+  // Local video position for dragging
+  final localVideoPosition = const Offset(20, 50).obs;
   
   StreamSubscription? _socketSubscription;
 
@@ -171,6 +177,42 @@ class CallController extends GetxController {
          }
       }
     }
+  }
+
+  void switchCamera() async {
+    final track = localVideoTrack.value;
+    if (track != null) {
+      try {
+        final newPosition = currentCameraPosition.value == CameraPosition.front 
+            ? CameraPosition.back 
+            : CameraPosition.front;
+            
+        await track.restartTrack(
+          CameraCaptureOptions(cameraPosition: newPosition),
+        );
+        currentCameraPosition.value = newPosition;
+        localVideoTrack.refresh(); // Trigger UI update if needed
+      } catch (e) {
+        print("Camera Switch Error: $e");
+      }
+    }
+  }
+
+  void toggleSpeakerphone() async {
+    try {
+      bool newState = !isSpeakerphoneOn.value;
+      await Hardware.instance.setSpeakerphoneOn(newState);
+      isSpeakerphoneOn.value = newState;
+    } catch (e) {
+      print("Speakerphone Toggle Error: $e");
+    }
+  }
+
+  void updateLocalVideoPosition(Offset delta) {
+    localVideoPosition.value = Offset(
+      localVideoPosition.value.dx + delta.dx,
+      localVideoPosition.value.dy + delta.dy,
+    );
   }
 
   void endCall() {

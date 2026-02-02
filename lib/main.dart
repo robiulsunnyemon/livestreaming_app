@@ -4,6 +4,7 @@ import 'app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'app/data/services/auth_service.dart';
+import 'app/data/services/social_service.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 Future<void> main() async {
@@ -19,6 +20,7 @@ Future<void> main() async {
   }
 
   await Get.putAsync(() => AuthService().init());
+  Get.put(SocialService());
   
   runApp(
     GetMaterialApp(

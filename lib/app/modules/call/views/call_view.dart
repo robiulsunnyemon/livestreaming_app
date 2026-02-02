@@ -104,18 +104,26 @@ class CallView extends GetView<CallController> {
 
         // Local Video (Overlay)
         if (controller.callType.value == "video" && controller.localVideoTrack.value != null)
-          Positioned(
-            top: 50,
-            right: 20,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: SizedBox(
-                width: 120,
-                height: 180,
-                child: VideoTrackRenderer(controller.localVideoTrack.value!),
+          Obx(() => Positioned(
+            top: controller.localVideoPosition.value.dy,
+            right: controller.localVideoPosition.value.dx,
+            child: GestureDetector(
+              onPanUpdate: (details) {
+                 controller.localVideoPosition.value = Offset(
+                    controller.localVideoPosition.value.dx - details.delta.dx,
+                    controller.localVideoPosition.value.dy + details.delta.dy,
+                 );
+              },
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: SizedBox(
+                  width: 120,
+                  height: 180,
+                  child: VideoTrackRenderer(controller.localVideoTrack.value!),
+                ),
               ),
             ),
-          ),
+          )),
 
         // Controls
         Positioned(
@@ -127,6 +135,11 @@ class CallView extends GetView<CallController> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 _buildControlButton(
+                  icon: controller.isSpeakerphoneOn.value ? Icons.volume_up : Icons.volume_down,
+                  onTap: controller.toggleSpeakerphone,
+                  isActive: controller.isSpeakerphoneOn.value,
+                ),
+                _buildControlButton(
                   icon: controller.isMicEnabled.value ? Icons.mic : Icons.mic_off,
                   onTap: controller.toggleMic,
                   isActive: controller.isMicEnabled.value,
@@ -137,12 +150,17 @@ class CallView extends GetView<CallController> {
                   onTap: controller.endCall,
                   size: 70,
                 ),
-                if (controller.callType.value == "video")
+                if (controller.callType.value == "video") ...[
                   _buildControlButton(
                     icon: controller.isCameraEnabled.value ? Icons.videocam : Icons.videocam_off,
                     onTap: controller.toggleCamera,
                     isActive: controller.isCameraEnabled.value,
                   ),
+                  _buildControlButton(
+                    icon: Icons.flip_camera_ios,
+                    onTap: controller.switchCamera,
+                  ),
+                ],
               ],
             ),
           ),

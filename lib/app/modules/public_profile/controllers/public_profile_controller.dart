@@ -23,7 +23,7 @@ class PublicProfileController extends GetxController {
     }
   }
 
-  void fetchProfile() async {
+  Future<void> fetchProfile() async {
     isLoading.value = true;
     final profile = await _socialService.getPublicProfile(userId);
     if (profile != null) {

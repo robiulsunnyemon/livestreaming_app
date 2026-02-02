@@ -19,8 +19,9 @@ class AuthService extends GetxService {
   
   // Base URL
   // Base URL
-  static const String baseUrl = 'https://erronliveapp.instalive.cloud/api/v1';
-  static const String baseOrigin = 'https://erronliveapp.instalive.cloud';
+  static const String baseUrl = 'https://api.instalive.cloud/api/v1';
+  static const String baseOrigin = 'https://api.instalive.cloud';
+  static const String wsUrl = 'wss://api.instalive.cloud/api/v1/chat/ws';
   
   // Local Development (Android Emulator)
   // static const String baseUrl = 'http://10.0.2.2:8000/api/v1';

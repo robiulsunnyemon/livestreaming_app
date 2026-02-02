@@ -101,7 +101,7 @@ class UserModel {
   static String? _getFullUrl(String? path) {
     if (path == null || path.isEmpty) return path;
     if (path.startsWith('http')) return path;
-    const base = 'https://erronliveapp.instalive.cloud';
+    const base = 'https://api.instalive.cloud';
     return "$base${path.startsWith('/') ? '' : '/'}$path";
   }
 }

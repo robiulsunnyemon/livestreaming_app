@@ -64,7 +64,7 @@ class SocialService {
   }
 
   Future<Map<String, dynamic>?> getPublicProfile(String targetId) async {
-    final url = Uri.parse("$_baseUrl/social/profile/$targetId");
+    final url = Uri.parse("$_baseUrl/users/profile/public/$targetId");
     final token = AuthService.to.token;
 
     try {

@@ -39,6 +39,8 @@ import '../modules/payment_history/bindings/payment_history_binding.dart';
 import '../modules/payment_history/views/payment_history_view.dart';
 import '../modules/welcome/bindings/welcome_binding.dart';
 import '../modules/welcome/views/welcome_view.dart';
+import '../modules/public_profile/bindings/public_profile_binding.dart';
+import '../modules/public_profile/views/public_profile_view.dart';
 
 part 'app_routes.dart';
 
@@ -161,6 +163,11 @@ class AppPages {
       name: _Paths.WELCOME,
       page: () => const WelcomeView(),
       binding: WelcomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.PUBLIC_PROFILE,
+      page: () => const PublicProfileView(),
+      binding: PublicProfileBinding(),
     ),
   ];
 }

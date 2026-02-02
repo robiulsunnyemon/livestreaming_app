@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../data/services/auth_service.dart';
+import '../../../routes/app_pages.dart';
 import '../controllers/active_users_controller.dart';
 import '../../../data/models/user_model.dart';
 import '../../../data/models/conversation_model.dart';
@@ -87,10 +88,10 @@ class ActiveUsersView extends GetView<ActiveUsersController> {
                     itemCount: controller.activeUsers.isEmpty ? (controller.currentUser.value != null ? 1 : 0) : controller.activeUsers.length,
                     itemBuilder: (context, index) {
                       if (controller.activeUsers.isEmpty) {
-                        return _buildActiveUserAvatar(controller.currentUser.value!, isSelf: true);
+                        return _buildActiveUserAvatar(controller.currentUser.value!, isSelf: true,context: context);
                       }
                       final user = controller.activeUsers[index];
-                      return _buildActiveUserAvatar(user);
+                      return _buildActiveUserAvatar(user,context: context);
                     },
                   ),
                 ),
@@ -134,9 +135,9 @@ class ActiveUsersView extends GetView<ActiveUsersController> {
     );
   }
 
-  Widget _buildActiveUserAvatar(UserModel user, {bool isSelf = false}) {
+  Widget _buildActiveUserAvatar(UserModel user, {bool isSelf = false,required BuildContext context}) {
     return GestureDetector(
-      onTap: isSelf ? null : () => controller.startChat(user),
+      onTap: isSelf ? null : () => _showUserOptions(context, user),
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 8),
         child: Column(
@@ -261,6 +262,49 @@ class ActiveUsersView extends GetView<ActiveUsersController> {
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  void _showUserOptions(BuildContext context, UserModel user) {
+    Get.bottomSheet(
+      Container(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        decoration: const BoxDecoration(
+          color: AppColors.surface,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              margin: const EdgeInsets.only(bottom: 20),
+              decoration: BoxDecoration(
+                color: Colors.grey[600],
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.message, color: Colors.blueAccent),
+              title: const Text("Send Message", style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Get.back();
+                controller.startChat(user);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.person, color: AppColors.secondaryPrimary),
+              title: const Text("View Profile", style: TextStyle(color: Colors.white)),
+              onTap: () {
+                Get.back();
+                Get.toNamed(Routes.PUBLIC_PROFILE, arguments: user.id);
+              },
+            ),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

@@ -21,7 +21,7 @@ class ChatSocketService {
     final profile = await AuthService.to.getMyProfile();
     if (profile == null) return;
 
-    final wsUrl = "wss://erronliveapp.instalive.cloud/api/v1/chat/ws?token=$token";
+    final wsUrl = "${AuthService.wsUrl}?token=$token";
     
     try {
       _channel = WebSocketChannel.connect(Uri.parse(wsUrl));

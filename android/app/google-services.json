@@ -12,7 +12,20 @@
           "package_name": "com.instalive.app"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "1021387950803-p9o9utgh182j32ic5ad7llfoo6udli2t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.instalive.app",
+            "certificate_hash": "8267b59e14be3667859351038abe745b514b9649"
+          }
+        },
+        {
+          "client_id": "1021387950803-brgtub12grosksjareuv0h3cn144sr9f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyB_AgFreaUjzmt9HRXrEWC5ropnxo2rrDY"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1021387950803-brgtub12grosksjareuv0h3cn144sr9f.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1021387950803-3e2jisjontm46mq0te39nlj8plnthn01.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.instalive.app"
+              }
+            }
+          ]
         }
       }
     }
