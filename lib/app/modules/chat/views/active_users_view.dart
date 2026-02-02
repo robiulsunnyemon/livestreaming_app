@@ -30,6 +30,7 @@ class ActiveUsersView extends GetView<ActiveUsersController> {
             margin: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
             width: 150,
             child: TextField(
+              controller: controller.searchTextController,
               onChanged: (val) => controller.search(val),
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(

@@ -6,6 +6,8 @@ import '../../../data/services/auth_service.dart';
 import '../../../data/services/chat_service.dart';
 import '../../../data/services/chat_socket_service.dart';
 import '../../../routes/app_pages.dart';
+import 'package:flutter/material.dart';
+
 
 class ActiveUsersController extends GetxController {
   final ChatService _chatService = ChatService();
@@ -18,6 +20,7 @@ class ActiveUsersController extends GetxController {
   final isSearching = false.obs;
   final currentUser = Rxn<UserModel>();
   
+  final searchTextController = TextEditingController();
   Timer? _searchDebounce;
 
   StreamSubscription? _messageSubscription;
@@ -50,6 +53,13 @@ class ActiveUsersController extends GetxController {
     });
   }
 
+  void clearSearch() {
+    searchTextController.clear();
+    searchResults.clear();
+    isSearching.value = false;
+    _searchDebounce?.cancel();
+  }
+
   void _listenForUpdates() {
     _messageSubscription = _socketService.messages.listen((_) {
       // Whenever ANY message is received, refresh the conversation list
@@ -60,6 +70,7 @@ class ActiveUsersController extends GetxController {
   @override
   void onClose() {
     _messageSubscription?.cancel();
+    searchTextController.dispose();
     super.onClose();
   }
 
