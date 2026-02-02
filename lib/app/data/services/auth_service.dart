@@ -18,8 +18,13 @@ class AuthService extends GetxService {
   );
   
   // Base URL
+  // Base URL
   static const String baseUrl = 'https://erronliveapp.instalive.cloud/api/v1';
   static const String baseOrigin = 'https://erronliveapp.instalive.cloud';
+  
+  // Local Development (Android Emulator)
+  // static const String baseUrl = 'http://10.0.2.2:8000/api/v1';
+  // static const String baseOrigin = 'http://10.0.2.2:8000';
 
   static String getFullUrl(String? path) {
     if (path == null || path.isEmpty) return "";
@@ -74,6 +79,10 @@ class AuthService extends GetxService {
       }
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+      print(googleAuth);
+
+
       final String? accessToken = googleAuth.accessToken;
 
       if (accessToken == null) {

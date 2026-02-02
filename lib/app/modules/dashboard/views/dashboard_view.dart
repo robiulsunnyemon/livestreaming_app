@@ -1,4 +1,4 @@
-import 'package:erron_live_app/app/modules/chat/views/active_users_view.dart';
+import 'package:instalive/app/modules/chat/views/active_users_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/dashboard_controller.dart';

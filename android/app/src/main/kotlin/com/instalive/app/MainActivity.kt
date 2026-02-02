@@ -1,4 +1,4 @@
-package com.example.erron_live_app
+package com.instalive.app
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

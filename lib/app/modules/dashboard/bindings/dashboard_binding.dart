@@ -1,6 +1,7 @@
-import 'package:erron_live_app/app/modules/chat/controllers/active_users_controller.dart';
+
 import 'package:get/get.dart';
 import '../../../data/services/chat_socket_service.dart';
+import '../../chat/controllers/active_users_controller.dart';
 import '../controllers/dashboard_controller.dart';
 import '../../home/controllers/home_controller.dart';
 import '../../explore/controllers/explore_controller.dart';

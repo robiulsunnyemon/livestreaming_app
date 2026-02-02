@@ -1,10 +1,11 @@
-import 'package:erron_live_app/app/core/theme/app_colors.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../core/theme/app_colors.dart';
 import '../controllers/auth_controller.dart';
 
 class ResetPasswordView extends GetView<AuthController> {
-  const ResetPasswordView({Key? key}) : super(key: key);
+  const ResetPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {

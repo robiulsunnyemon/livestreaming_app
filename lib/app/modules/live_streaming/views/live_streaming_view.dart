@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:erron_live_app/app/core/theme/app_colors.dart';
+import 'package:instalive/app/core/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';

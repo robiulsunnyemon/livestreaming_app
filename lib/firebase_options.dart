@@ -41,50 +41,48 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD3mFOPYbjpfgirVFt_y3atg0RABRRGgd0',
-    appId: '1:1074776985741:web:50ad1029a553a15644d2c4',
-    messagingSenderId: '1074776985741',
-    projectId: 'instalive-291d9',
-    authDomain: 'instalive-291d9.firebaseapp.com',
-    storageBucket: 'instalive-291d9.firebasestorage.app',
-    measurementId: 'G-FGDSJ0XQE7',
+    apiKey: 'AIzaSyBw1gVESDFQRJtqlfT_oydRHdsTn4M5DiE',
+    appId: '1:1021387950803:web:a289094cfe89a923dbe226',
+    messagingSenderId: '1021387950803',
+    projectId: 'instalive-b0578',
+    authDomain: 'instalive-b0578.firebaseapp.com',
+    storageBucket: 'instalive-b0578.firebasestorage.app',
+    measurementId: 'G-LFH75YSZRE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyACnboig54WtnpsDc8nOKVkUkZOs08Kblo',
-    appId: '1:1074776985741:android:5dc1fb550e2988f544d2c4',
-    messagingSenderId: '1074776985741',
-    projectId: 'instalive-291d9',
-    storageBucket: 'instalive-291d9.firebasestorage.app',
+    apiKey: 'AIzaSyB_AgFreaUjzmt9HRXrEWC5ropnxo2rrDY',
+    appId: '1:1021387950803:android:f6117347e4ada31fdbe226',
+    messagingSenderId: '1021387950803',
+    projectId: 'instalive-b0578',
+    storageBucket: 'instalive-b0578.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBEHhl6Xq6Lcd8SlfZTZSXx6YtuGqyxBw4',
-    appId: '1:1074776985741:ios:1bc912a1d2b2ce2144d2c4',
-    messagingSenderId: '1074776985741',
-    projectId: 'instalive-291d9',
-    storageBucket: 'instalive-291d9.firebasestorage.app',
-    iosClientId: '1074776985741-jbeempo98ep3gdl0sobv1dbimo2br4fh.apps.googleusercontent.com',
-    iosBundleId: 'com.example.erronLiveApp',
+    apiKey: 'AIzaSyA8aN1Ep4BLtEqUPRkgEPvKUUgbM_rV8-I',
+    appId: '1:1021387950803:ios:fbccc20de374357bdbe226',
+    messagingSenderId: '1021387950803',
+    projectId: 'instalive-b0578',
+    storageBucket: 'instalive-b0578.firebasestorage.app',
+    iosBundleId: 'com.instalive.app',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyBEHhl6Xq6Lcd8SlfZTZSXx6YtuGqyxBw4',
-    appId: '1:1074776985741:ios:1bc912a1d2b2ce2144d2c4',
-    messagingSenderId: '1074776985741',
-    projectId: 'instalive-291d9',
-    storageBucket: 'instalive-291d9.firebasestorage.app',
-    iosClientId: '1074776985741-jbeempo98ep3gdl0sobv1dbimo2br4fh.apps.googleusercontent.com',
-    iosBundleId: 'com.example.erronLiveApp',
+    apiKey: 'AIzaSyA8aN1Ep4BLtEqUPRkgEPvKUUgbM_rV8-I',
+    appId: '1:1021387950803:ios:fbccc20de374357bdbe226',
+    messagingSenderId: '1021387950803',
+    projectId: 'instalive-b0578',
+    storageBucket: 'instalive-b0578.firebasestorage.app',
+    iosBundleId: 'com.instalive.app',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'AIzaSyD3mFOPYbjpfgirVFt_y3atg0RABRRGgd0',
-    appId: '1:1074776985741:web:f4c957f86adab10644d2c4',
-    messagingSenderId: '1074776985741',
-    projectId: 'instalive-291d9',
-    authDomain: 'instalive-291d9.firebaseapp.com',
-    storageBucket: 'instalive-291d9.firebasestorage.app',
-    measurementId: 'G-ZVSGWZV7JX',
+    apiKey: 'AIzaSyBw1gVESDFQRJtqlfT_oydRHdsTn4M5DiE',
+    appId: '1:1021387950803:web:1747edb91445e731dbe226',
+    messagingSenderId: '1021387950803',
+    projectId: 'instalive-b0578',
+    authDomain: 'instalive-b0578.firebaseapp.com',
+    storageBucket: 'instalive-b0578.firebasestorage.app',
+    measurementId: 'G-T87N7QP1BN',
   );
 }
