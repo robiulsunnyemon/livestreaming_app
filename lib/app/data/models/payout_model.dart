@@ -1,6 +1,6 @@
 class PayoutRequestModel {
   final String id;
-  final double amountCoins;
+  final int amountCoins;
   final double amountFiat;
   final double platformFee;
   final double finalAmount;
@@ -22,7 +22,7 @@ class PayoutRequestModel {
   factory PayoutRequestModel.fromJson(Map<String, dynamic> json) {
     return PayoutRequestModel(
       id: json['id'] ?? "",
-      amountCoins: (json['amount_coins'] ?? 0).toDouble(),
+      amountCoins: (json['amount_coins'] ?? 0).toInt(),
       amountFiat: (json['amount_fiat'] ?? 0).toDouble(),
       platformFee: (json['platform_fee'] ?? 0).toDouble(),
       finalAmount: (json['final_amount'] ?? 0).toDouble(),

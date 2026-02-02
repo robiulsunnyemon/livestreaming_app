@@ -5,7 +5,7 @@ class UserModel {
   final String? firstName;
   final String? lastName;
   final String email;
-  final double coins;
+  final int coins;
   final String? phoneNumber;
   final bool isVerified;
   final String? country;
@@ -70,7 +70,7 @@ class UserModel {
       firstName: json['first_name'],
       lastName: json['last_name'],
       email: json['email'] ?? "",
-      coins: (json['coins'] ?? 0).toDouble(),
+      coins: (json['coins'] ?? 0).toInt(),
       phoneNumber: json['phone_number'],
       isVerified: json['is_verified'] ?? false,
       country: json['country'],

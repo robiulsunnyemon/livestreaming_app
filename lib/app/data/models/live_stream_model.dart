@@ -8,7 +8,7 @@ class LiveStreamModel {
   final String? category;
   final String? livekitToken;
   final bool isPremium;
-  final double entryFee;
+  final int entryFee;
   final DateTime? startTime;
   final DateTime? endTime;
   final int totalLikes;
@@ -50,7 +50,7 @@ class LiveStreamModel {
       category: json['category'],
       livekitToken: json['livekit_token'],
       isPremium: json['is_premium'] ?? false,
-      entryFee: (json['entry_fee'] ?? 0).toDouble(),
+      entryFee: (json['entry_fee'] ?? 0).toInt(),
       startTime: json['start_time'] != null ? DateTime.parse(json['start_time']) : null,
       endTime: json['end_time'] != null ? DateTime.parse(json['end_time']) : null,
       totalLikes: json['total_likes'] ?? 0,
