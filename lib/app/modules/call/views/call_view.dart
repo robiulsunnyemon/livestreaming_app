@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:livekit_client/livekit_client.dart';
 import '../controllers/call_controller.dart';
 import 'dart:ui';
+import 'texture_video_renderer.dart';
 
 class CallView extends GetView<CallController> {
   const CallView({super.key});
@@ -97,7 +98,7 @@ class CallView extends GetView<CallController> {
         // Remote Video (Background)
         if (controller.callType.value == "video" && controller.remoteVideoTrack.value != null)
           Positioned.fill(
-            child: VideoTrackRenderer(controller.remoteVideoTrack.value!),
+            child: TextureVideoRenderer(track: controller.remoteVideoTrack.value!),
           )
         else
           _buildAudioCallBackground(),
@@ -119,7 +120,7 @@ class CallView extends GetView<CallController> {
                 child: SizedBox(
                   width: 120,
                   height: 180,
-                  child: VideoTrackRenderer(controller.localVideoTrack.value!),
+                  child: TextureVideoRenderer(track: controller.localVideoTrack.value!),
                 ),
               ),
             ),

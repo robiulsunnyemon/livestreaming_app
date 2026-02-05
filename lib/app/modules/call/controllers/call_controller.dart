@@ -88,6 +88,7 @@ class CallController extends GetxController {
       await _connectToRoom(token);
     } catch (e) {
       Get.back();
+      print(e.toString());
       SnackbarHelper.showError("Error", "Failed to start call: $e");
     }
   }
