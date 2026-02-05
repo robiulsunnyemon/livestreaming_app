@@ -7,6 +7,7 @@ import 'package:http_parser/http_parser.dart';
 import '../../core/utils/snackbar_helper.dart';
 import '../models/user_model.dart';
 import '../models/payout_model.dart';
+import 'chat_socket_service.dart';
 
 class AuthService extends GetxService {
   static AuthService get to => Get.find();
@@ -60,6 +61,9 @@ class AuthService extends GetxService {
         final data = jsonDecode(response.body);
         final token = data['access_token'];
         await _box.write(_tokenKey, token);
+        try {
+          Get.find<ChatSocketService>().connect();
+        } catch (_) {}
         return true;
       } else {
         SnackbarHelper.showError("Login Failed", "Invalid credentials");
@@ -99,6 +103,9 @@ class AuthService extends GetxService {
         final data = jsonDecode(response.body);
         final token = data['access_token'];
         await _box.write(_tokenKey, token);
+        try {
+          Get.find<ChatSocketService>().connect();
+        } catch (_) {}
         return true;
       } else {
         SnackbarHelper.showError("Google Login Failed", response.body);
@@ -139,6 +146,9 @@ class AuthService extends GetxService {
 
   Future<void> logout() async {
     await _box.erase();
+    try {
+      Get.find<ChatSocketService>().disconnect();
+    } catch (_) {}
     Get.offAllNamed('/login');
   }
 

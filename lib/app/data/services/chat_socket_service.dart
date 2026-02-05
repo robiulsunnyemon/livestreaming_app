@@ -8,6 +8,12 @@ class ChatSocketService {
   WebSocketChannel? _channel;
   final _messageController = StreamController<dynamic>.broadcast();
   Stream<dynamic> get messages => _messageController.stream;
+
+  final _typingController = StreamController<Map<String, dynamic>>.broadcast();
+  Stream<Map<String, dynamic>> get typingEvents => _typingController.stream;
+
+  final _userStatusController = StreamController<Map<String, dynamic>>.broadcast();
+  Stream<Map<String, dynamic>> get userStatusEvents => _userStatusController.stream;
   
   bool _isConnected = false;
   bool get isConnected => _isConnected;
@@ -37,7 +43,20 @@ class ChatSocketService {
             return;
           }
 
+          // Handle Typing Events
+          if (payload['type'] == 'typing' || payload['type'] == 'stop_typing') {
+            _typingController.add(payload);
+            return;
+          }
+
+          // Handle User Status Events
+          if (payload['type'] == 'user_connected' || payload['type'] == 'user_disconnected') {
+            _userStatusController.add(payload);
+            return;
+          }
+
           // Handle Call Signals globally if needed, or pass to listeners
+          print("Socket Received: ${payload['type']} -> $payload"); // DEBUG LOG
           _messageController.add(payload);
 
           // We check for incoming call even when not in ChatView
@@ -78,6 +97,20 @@ class ChatSocketService {
     }
   }
 
+  void sendTyping(String receiverId) {
+    sendMessage({
+      "type": "typing",
+      "receiver_id": receiverId,
+    });
+  }
+
+  void sendStopTyping(String receiverId) {
+    sendMessage({
+      "type": "stop_typing",
+      "receiver_id": receiverId,
+    });
+  }
+
   void disconnect() {
     _channel?.sink.close();
     _isConnected = false;
@@ -99,5 +132,7 @@ class ChatSocketService {
   void dispose() {
     disconnect();
     _messageController.close();
+    _typingController.close();
+    _userStatusController.close();
   }
 }

@@ -46,9 +46,9 @@ class ChatView extends GetView<ChatController> {
                 Text(controller.receiverName, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white)),
                 Row(
                   children: [
-                    Container(width: 6, height: 6, decoration: const BoxDecoration(color: AppColors.success, shape: BoxShape.circle)),
+                    Obx(() => Container(width: 8, height: 8, decoration: BoxDecoration(color: controller.isOnline.value ? AppColors.success : Colors.grey, shape: BoxShape.circle))),
                     const SizedBox(width: 4),
-                    const Text("Online", style: TextStyle(fontSize: 12, color: Colors.grey)),
+                    Obx(() => Text(controller.isOnline.value ? "Online" : "Offline", style: const TextStyle(fontSize: 12, color: Colors.grey))),
                   ],
                 ),
               ],
@@ -85,8 +85,22 @@ class ChatView extends GetView<ChatController> {
               return ListView.builder(
                 controller: controller.scrollController,
                 padding: const EdgeInsets.all(10),
-                itemCount: controller.messages.length,
+                itemCount: controller.messages.length + (controller.isTyping.value ? 1 : 0),
                 itemBuilder: (context, index) {
+                  if (index == controller.messages.length) {
+                     return Align(
+                       alignment: Alignment.centerLeft,
+                       child: Container(
+                         margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                         decoration: BoxDecoration(
+                           color: Colors.white,
+                           borderRadius: BorderRadius.circular(20),
+                         ),
+                         child: const Text("Typing...", style: TextStyle(color: Colors.black54, fontSize: 12, fontStyle: FontStyle.italic)),
+                       ),
+                     );
+                  }
                   final msg = controller.messages[index];
                   final isMe = msg.senderId != controller.receiverId;
 
@@ -98,23 +112,38 @@ class ChatView extends GetView<ChatController> {
                     } catch (_) {}
                   }
 
-                  return GestureDetector(
+                  return Dismissible(
+                    key: Key(msg.id ?? index.toString()),
+                    direction: isMe ? DismissDirection.none : DismissDirection.startToEnd,
+                    confirmDismiss: (direction) async {
+                      if (direction == DismissDirection.startToEnd) {
+                        controller.setReplyingTo(msg);
+                        return false;
+                      }
+                      return false;
+                    },
+                    background: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(left: 20),
+                      child: const Icon(Icons.reply, color: Colors.blue, size: 30),
+                    ),
+                    child: GestureDetector(
                     onLongPress: () => _showReactionMenu(context, msg),
                     child: Align(
                       alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
-                      child: Column(
-                        crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      child: Stack(
+                        clipBehavior: Clip.none,
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: 4),
+                            margin: const EdgeInsets.symmetric(vertical: 4).copyWith(bottom: msg.reactions.isNotEmpty ? 15 : 4),
                             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                             decoration: BoxDecoration(
                               color: isMe ? AppColors.primary : Colors.white,
                               borderRadius: BorderRadius.only(
                                 topLeft: const Radius.circular(20),
                                 topRight: const Radius.circular(20),
-                                bottomLeft: Radius.circular(isMe ? 20 : 0),
-                                bottomRight: Radius.circular(isMe ? 0 : 20),
+                                bottomLeft: Radius.circular(isMe ? 20 : 4),
+                                bottomRight: Radius.circular(isMe ? 4 : 20),
                               ),
                             ),
                             constraints: BoxConstraints(maxWidth: Get.width * 0.75),
@@ -161,25 +190,34 @@ class ChatView extends GetView<ChatController> {
                             ),
                           ),
                           if (msg.reactions.isNotEmpty)
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 5),
-                              child: Wrap(
-                                spacing: 2,
-                                children: msg.reactions.map((r) => Container(
-                                  padding: const EdgeInsets.all(2),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[900],
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.white24, width: 0.5),
-                                  ),
-                                  child: Text(r.emoji, style: const TextStyle(fontSize: 12)),
-                                )).toList(),
+                            Positioned(
+                              bottom: -5,
+                              right: isMe ? 0 : null,
+                              left: isMe ? null : 0,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[900],
+                                  borderRadius: BorderRadius.circular(20),
+                                  border: Border.all(color: Colors.white24, width: 1),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 4,
+                                      offset: const Offset(0, 2),
+                                    )
+                                  ],
+                                ),
+                                child: Wrap(
+                                  spacing: 2,
+                                  children: msg.reactions.take(3).map((r) => Text(r.emoji, style: const TextStyle(fontSize: 12))).toList(),
+                                ),
                               ),
                             ),
                         ],
                       ),
                     ),
-                  );
+                  ));
                 },
               );
             }),
@@ -255,6 +293,7 @@ class ChatView extends GetView<ChatController> {
                        child: TextField(
                           controller: controller.messageController,
                           focusNode: controller.messageFocusNode,
+                          onChanged: controller.onTextChanged,
                           style: const TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
                             hintText: "Say something...",

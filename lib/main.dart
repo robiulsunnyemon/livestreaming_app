@@ -7,6 +7,8 @@ import 'app/data/services/auth_service.dart';
 import 'app/data/services/social_service.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
+import 'app/data/services/chat_socket_service.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
@@ -21,6 +23,12 @@ Future<void> main() async {
 
   await Get.putAsync(() => AuthService().init());
   Get.put(SocialService());
+  final chatSocketService = Get.put(ChatSocketService());
+  
+  // Connect socket if user is already logged in
+  if (AuthService.to.isLoggedIn) {
+    chatSocketService.connect();
+  }
   
   runApp(
     GetMaterialApp(
