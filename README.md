@@ -1,20 +1,20 @@
-# InstaLive 🎥
+# InstaLive
 
 InstaLive is a robust and feature-rich live streaming application built with Flutter. It offers a seamless platform for content creators and viewers to connect in real-time, featuring high-quality video streaming, interactive chat, and integrated monetization tools.
 
-## 🚀 Key Features
+## Key Features
 
-*   **🎙️ Live Streaming:** High-quality, low-latency live broadcasting powered by **LiveKit** and **WebRTC**.
-*   **💬 Real-time Chat:** Interactive chat system for instant engagement between streamers and viewers.
-*   **📞 Audio & Video Calls:** dedicated module for direct audio and video communication.
-*   **💰 Monetization & Wallet:** Integrated **Stripe** payments for donations/subscriptions, with a comprehensive wallet system to track earnings and transaction history (`finance`, `payment_history`).
-*   **🔐 Authentication:** Secure user authentication using **Google Sign-In** and **Firebase**.
-*   **🛡️ KYC Verification:** Built-in Identity Verification (Know Your Customer) module for broadcaster validation.
-*   **🌍 Explore & Discover:** Dashboard and Explore sections to find trending streams and new content creators.
-*   **🔔 Notifications:** Push notification system to keep users updated.
-*   **👤 User Profiles:** Detailed user profiles (`profile`, `public_profile`) with social features.
+*   **Live Streaming:** High-quality, low-latency live broadcasting powered by **LiveKit** and **WebRTC**.
+*   **Real-time Chat:** Interactive chat system for instant engagement between streamers and viewers.
+*   **Audio & Video Calls:** dedicated module for direct audio and video communication.
+*   **Monetization & Wallet:** Integrated **Stripe** payments for donations/subscriptions, with a comprehensive wallet system to track earnings and transaction history (`finance`, `payment_history`).
+*   **Authentication:** Secure user authentication using **Google Sign-In** and **Firebase**.
+*   **KYC Verification:** Built-in Identity Verification (Know Your Customer) module for broadcaster validation.
+*   **Explore & Discover:** Dashboard and Explore sections to find trending streams and new content creators.
+*   **Notifications:** Push notification system to keep users updated.
+*   **User Profiles:** Detailed user profiles (`profile`, `public_profile`) with social features.
 
-## 🛠 Tech Stack
+## Tech Stack
 
 *   **Framework:** [Flutter](https://flutter.dev/)
 *   **Language:** [Dart](https://dart.dev/)
@@ -25,7 +25,7 @@ InstaLive is a robust and feature-rich live streaming application built with Flu
     *   **Stripe** (Payments)
 *   **Architecture:** MVC (Model-View-Controller) with GetX pattern.
 
-## 📦 Dependencies
+## Dependencies
 
 Major packages used in this project include:
 
@@ -39,7 +39,7 @@ Major packages used in this project include:
 *   `intl`: Internationalization and formatting.
 *   `permission_handler`: Managing app permissions.
 
-## ⚙️ Installation & Setup
+## Installation & Setup
 
 To run this project locally, follow these steps:
 
@@ -68,7 +68,7 @@ To run this project locally, follow these steps:
     flutter run
     ```
 
-## 📂 Project Structure
+## Project Structure
 
 This project uses the standard **GetX** structure for scalability and maintainability:
 
@@ -77,6 +77,23 @@ lib/
 ├── app/
 │   ├── core/               # Utilities, Constants, Themes
 │   ├── data/               # Data Layer (Models, Services, Providers)
+│   │   ├── models/         # Data Models
+│   │   │   ├── user_model.dart
+│   │   │   ├── live_stream_model.dart
+│   │   │   ├── chat_message.dart
+│   │   │   ├── conversation_model.dart
+│   │   │   ├── notification_model.dart
+│   │   │   ├── payout_model.dart
+│   │   │   └── beneficiary_model.dart
+│   │   └── services/       # API Services
+│   │       ├── auth_service.dart
+│   │       ├── streaming_service.dart
+│   │       ├── chat_service.dart
+│   │       ├── chat_socket_service.dart
+│   │       ├── call_service.dart
+│   │       ├── finance_service.dart
+│   │       ├── notification_service.dart
+│   │       └── social_service.dart
 │   ├── modules/            # Feature Modules (GetX Architecture)
 │   │   ├── auth/           
 │   │   │   ├── bindings/   
@@ -198,10 +215,12 @@ lib/
 │   │       └── views/
 │   │           └── welcome_view.dart
 │   └── routes/             # App Navigation & Page Routes
+│       ├── app_pages.dart
+│       └── app_routes.dart
 └── main.dart               # Entry Point
 ```
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! If you find a bug or want to add a feature, please open an issue or submit a pull request.
 
