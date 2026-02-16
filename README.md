@@ -220,6 +220,17 @@ lib/
 └── main.dart               # Entry Point
 ```
 
+## CI/CD Pipeline
+
+This project uses **GitHub Actions** for Continuous Integration and Deployment. The workflow is defined in `.github/workflows/main.yml`.
+
+**Features:**
+*   **Automated Analysis:** Runs `flutter analyze` on every push to check for errors and linting issues.
+*   **Unit Testing:** Executes `flutter test` to ensure code stability.
+*   **Build Verification:** Automatically builds the Android APK (`flutter build apk`) to verify the build process.
+
+To modify the pipeline, edit the `.github/workflows/main.yml` file.
+
 ## Contributing
 
 Contributions are welcome! If you find a bug or want to add a feature, please open an issue or submit a pull request.
