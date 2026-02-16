@@ -56,7 +56,7 @@ class ChatSocketService {
           }
 
           // Handle Call Signals globally if needed, or pass to listeners
-          print("Socket Received: ${payload['type']} -> $payload"); // DEBUG LOG
+
           _messageController.add(payload);
 
           // We check for incoming call even when not in ChatView
@@ -65,18 +65,18 @@ class ChatSocketService {
           }
         },
         onError: (error) {
-          print("WebSocket Error: $error");
+
           _isConnected = false;
           _reconnect();
         },
         onDone: () {
-          print("WebSocket Closed");
+
           _isConnected = false;
           _reconnect(); // Added reconnection on done
         },
       );
     } catch (e) {
-      print("WebSocket Connection Error: $e");
+
       _isConnected = false;
     }
   }

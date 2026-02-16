@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import '../../../data/services/social_service.dart';
-import '../../../data/models/user_model.dart'; // Ensure UserModel exists or use map
 import '../../../routes/app_pages.dart';
 
 class PublicProfileController extends GetxController {

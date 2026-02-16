@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../routes/app_pages.dart';
-import '../../../core/theme/app_colors.dart';
 
 class PayoutSuccessView extends StatelessWidget {
-  const PayoutSuccessView({Key? key}) : super(key: key);
+  const PayoutSuccessView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class PayoutSuccessView extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.check_circle, color: Colors.green, size: 80),

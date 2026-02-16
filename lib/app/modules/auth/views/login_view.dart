@@ -85,7 +85,7 @@ class LoginView extends GetView<AuthController> {
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                     elevation: 8,
-                    shadowColor: AppColors.primary.withOpacity(0.5),
+                    shadowColor: AppColors.primary.withValues(alpha: 0.5),
                   ),
                   child: controller.isLoading.value
                       ? const CircularProgressIndicator(color: Colors.white)

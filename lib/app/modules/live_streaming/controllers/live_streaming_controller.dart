@@ -110,7 +110,7 @@ class LiveStreamingController extends GetxController {
         if (isHost) {
           hostFullName.value = user.fullName;
           hostProfileImage.value = user.profileImage ?? "";
-          hostShady.value = user.shady ?? 0.0;
+          hostShady.value = user.shady ;
           hostLegit.value = 100.0 - hostShady.value;
         }
       }
@@ -211,7 +211,7 @@ class LiveStreamingController extends GetxController {
       final response = await _streamingService.payStreamFee(sessionId);
       Get.back(); // Close loading
 
-      if (response != null && (response['message'] == "Payment successful" || response['message'] == "Already paid")) {
+      if ((response['message'] == "Payment successful" || response['message'] == "Already paid")) {
         debugPrint("LiveStreaming: Payment Successful. Message: ${response['message']}");
         hasPaid.value = true;
         

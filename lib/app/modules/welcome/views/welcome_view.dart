@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/welcome_controller.dart';
-import '../../../core/theme/app_colors.dart';
 
 class WelcomeView extends GetView<WelcomeController> {
   const WelcomeView({super.key});
@@ -100,7 +99,7 @@ class WelcomeView extends GetView<WelcomeController> {
                   Text(
                     "Stream publicly for everyone or host exclusive paid rooms for your top fans.",
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.7),
+                      color: Colors.white.withValues(alpha: 0.7),
                       fontSize: 16,
                     ),
                     textAlign: TextAlign.center,
@@ -148,7 +147,7 @@ class WelcomeView extends GetView<WelcomeController> {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.5),
+            color: Colors.black.withValues(alpha: 0.5),
             blurRadius: 10,
             offset: const Offset(0, 5),
           ),

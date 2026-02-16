@@ -55,7 +55,7 @@ class AuthService extends GetxService {
 
 
 
-      print("response: $uri  ${response.statusCode},${response.body}");
+
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -85,7 +85,7 @@ class AuthService extends GetxService {
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
 
-      print(googleAuth);
+
 
 
       final String? accessToken = googleAuth.accessToken;
@@ -112,7 +112,7 @@ class AuthService extends GetxService {
         return false;
       }
     } catch (e) {
-      print("Google Sign-In Error: $e");
+
       SnackbarHelper.showError("Error", "Google Sign-In failed: $e");
       return false;
     }
@@ -164,11 +164,11 @@ class AuthService extends GetxService {
       if (response.statusCode == 200) {
         return UserModel.fromJson(jsonDecode(response.body));
       } else {
-        print("Profile Error: ${response.statusCode} - ${response.body}");
+
         return null;
       }
     } catch (e) {
-      print("Profile Exception: $e");
+
       return null;
     }
   }
@@ -275,7 +275,7 @@ class AuthService extends GetxService {
         }),
       );
 
-      print(response.body);
+
 
       if (response.statusCode == 200) {
         return true;
@@ -285,7 +285,7 @@ class AuthService extends GetxService {
       }
     }
     catch (e){
-      print(e);
+
       SnackbarHelper.showError("Error", "Something went wrong: $e");
       return false;
     }
@@ -326,7 +326,7 @@ class AuthService extends GetxService {
       if (response.statusCode == 200) {
         return true;
       } else {
-        print(response.body);
+
         SnackbarHelper.showError("Error", "Failed to upload profile image: ${response.body}");
         return false;
       }
@@ -397,11 +397,11 @@ class AuthService extends GetxService {
         final List data = jsonDecode(response.body);
         return data.map((e) => PayoutRequestModel.fromJson(e)).toList();
       } else {
-        print("Payout History Error: ${response.statusCode} - ${response.body}");
+
         return [];
       }
     } catch (e) {
-      print("Payout History Exception: $e");
+
       return [];
     }
   }

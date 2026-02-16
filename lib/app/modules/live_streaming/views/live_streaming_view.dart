@@ -39,7 +39,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                       ),
                     BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(color: Colors.black.withOpacity(0.4)),
+                      child: Container(color: Colors.black.withValues(alpha: 0.4)),
                     ),
                     const Center(
                       child: Column(
@@ -144,7 +144,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                   child: Obx(() => Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
                                     decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.3),
+                                      color: Colors.black.withValues(alpha: 0.3),
                                       borderRadius: BorderRadius.circular(30),
                                       border: Border.all(color: Colors.white24),
                                     ),
@@ -282,7 +282,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                         margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
+                          color: Colors.white.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(24),
                           border: Border.all(color: Colors.white24, width: 1),
                         ),
@@ -310,7 +310,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                                 decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(0.05),
+                                  color: Colors.white.withValues(alpha: 0.05),
                                   borderRadius: BorderRadius.circular(16),
                                   border: Border.all(color: Colors.white10)
                                 ),
@@ -318,7 +318,7 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                                   children: [
                                     CircleAvatar(
                                       radius: 18,
-                                      backgroundColor: Colors.purpleAccent.withOpacity(0.2),
+                                      backgroundColor: Colors.purpleAccent.withValues(alpha: 0.2),
                                       child: const Icon(Icons.bolt, color: Colors.purpleAccent, size: 24),
                                     ),
                                     const SizedBox(width: 15),
@@ -479,9 +479,9 @@ class LiveStreamingView extends GetView<LiveStreamingController> {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                           decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.2),
+                            color: Colors.white.withValues(alpha: 0.2),
                             borderRadius: BorderRadius.circular(30),
-                            border: Border.all(color: Colors.white.withOpacity(0.1)),
+                            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.min,

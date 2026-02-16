@@ -5,7 +5,6 @@ import '../controllers/dashboard_controller.dart';
 import '../../../core/theme/app_colors.dart';
 import '../../home/views/home_view.dart';
 import '../../explore/views/explore_view.dart';
-import '../../chat/views/chat_view.dart';
 import '../../profile/views/profile_view.dart';
 
 class DashboardView extends GetView<DashboardController> {

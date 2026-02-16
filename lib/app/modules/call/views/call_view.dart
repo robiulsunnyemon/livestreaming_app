@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:livekit_client/livekit_client.dart';
 import '../controllers/call_controller.dart';
 import 'dart:ui';
 import 'texture_video_renderer.dart';
@@ -35,7 +34,7 @@ class CallView extends GetView<CallController> {
         Positioned.fill(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-            child: Container(color: Colors.black.withOpacity(0.6)),
+            child: Container(color: Colors.black.withValues(alpha: 0.6)),
           ),
         ),
         
@@ -230,7 +229,7 @@ class CallView extends GetView<CallController> {
         width: size,
         height: size,
         decoration: BoxDecoration(
-          color: color ?? (isActive ? Colors.white.withOpacity(0.15) : Colors.white.withOpacity(0.05)),
+          color: color ?? (isActive ? Colors.white.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.05)),
           shape: BoxShape.circle,
           border: Border.all(color: Colors.white10),
         ),

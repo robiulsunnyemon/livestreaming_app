@@ -69,14 +69,14 @@ class PaymentHistoryView extends GetView<PaymentHistoryController> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: _getStatusColor(payout.status).withOpacity(0.1),
+              color: _getStatusColor(payout.status).withValues(alpha: 0.1),
               shape: BoxShape.circle,
             ),
             child: Icon(
@@ -121,7 +121,7 @@ class PaymentHistoryView extends GetView<PaymentHistoryController> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: _getStatusColor(payout.status).withOpacity(0.1),
+                  color: _getStatusColor(payout.status).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(

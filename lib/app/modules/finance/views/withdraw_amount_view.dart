@@ -5,7 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../profile/controllers/profile_controller.dart';
 
 class WithdrawAmountView extends GetView<FinanceController> {
-  const WithdrawAmountView({Key? key}) : super(key: key);
+  const WithdrawAmountView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class WithdrawAmountView extends GetView<FinanceController> {
       onChanged: controller.updateAmount,
       decoration: InputDecoration(
         hintText: "Enter amount",
-        hintStyle: TextStyle(color: Colors.white.withOpacity(0.1), fontSize: 24),
+        hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.1), fontSize: 24),
         enabledBorder: const UnderlineInputBorder(borderSide: BorderSide(color: Colors.white12)),
         focusedBorder: const UnderlineInputBorder(borderSide: BorderSide(color: AppColors.secondaryPrimary)),
         suffixIcon: TextButton(

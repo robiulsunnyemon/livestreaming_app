@@ -5,7 +5,7 @@ import '../../../routes/app_pages.dart';
 import '../../../core/theme/app_colors.dart';
 
 class ForgotPasswordView extends GetView<AuthController> {
-  const ForgotPasswordView({Key? key}) : super(key: key);
+  const ForgotPasswordView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +93,7 @@ class ForgotPasswordView extends GetView<AuthController> {
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                   elevation: 8,
-                  shadowColor: AppColors.primary.withOpacity(0.5),
+                  shadowColor: AppColors.primary.withValues(alpha: 0.5),
                 ),
                 child: controller.isLoading.value
                     ? const CircularProgressIndicator(color: Colors.white)

@@ -81,9 +81,9 @@ class LinkAccountView extends GetView<FinanceController> {
           style: const TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: hint,
-            hintStyle: TextStyle(color: Colors.white.withOpacity(0.2)),
+            hintStyle: TextStyle(color: Colors.white.withValues(alpha: 0.2)),
             filled: true,
-            fillColor: Colors.white.withOpacity(0.05),
+            fillColor: Colors.white.withValues(alpha: 0.05),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: BorderSide.none,
@@ -99,9 +99,9 @@ class LinkAccountView extends GetView<FinanceController> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.green.withOpacity(0.05),
+        color: Colors.green.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.green.withOpacity(0.2)),
+        border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
       ),
       child: Row(
         children: [
@@ -110,7 +110,7 @@ class LinkAccountView extends GetView<FinanceController> {
           Expanded(
             child: Text(
               "Your bank details are encrypted and stored securely via Stripe. We do not store your raw account numbers.",
-              style: TextStyle(color: Colors.green.withOpacity(0.8), fontSize: 11),
+              style: TextStyle(color: Colors.green.withValues(alpha: 0.8), fontSize: 11),
             ),
           ),
         ],

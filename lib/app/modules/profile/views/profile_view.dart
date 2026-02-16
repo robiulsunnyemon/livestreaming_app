@@ -1,9 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_connect/http/src/utils/utils.dart';
 import '../../../data/models/user_model.dart';
-import '../../../data/services/auth_service.dart';
 import '../../../routes/app_pages.dart';
 import '../controllers/profile_controller.dart';
 import '../../../core/theme/app_colors.dart';
@@ -57,7 +55,7 @@ class ProfileView extends GetView<ProfileController> {
                         //     gradient: LinearGradient(
                         //       begin: Alignment.topCenter,
                         //       end: Alignment.bottomCenter,
-                        //       colors: [Colors.black.withOpacity(0.1), AppColors.background],
+                        //       colors: [Colors.black.withValues(alpha: 0.1), AppColors.background],
                         //     ),
                         //   ),
                         //   child: Align(
@@ -205,7 +203,7 @@ class ProfileView extends GetView<ProfileController> {
                     Container(
                       height: 6,
                       decoration: BoxDecoration(
-                         color: Colors.grey.withOpacity(0.2),
+                         color: Colors.grey.withValues(alpha: 0.2),
                          borderRadius: BorderRadius.circular(3),
                       ),
                       child: Row(
@@ -446,7 +444,7 @@ class ProfileView extends GetView<ProfileController> {
                       child: ElevatedButton(
                         onPressed: () => Get.toNamed(Routes.PAYMENT_HISTORY),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white.withOpacity(0.2),
+                          backgroundColor: Colors.white.withValues(alpha: 0.2),
                           elevation: 0,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                         ),
@@ -509,7 +507,7 @@ class ProfileView extends GetView<ProfileController> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey.withOpacity(0.1)),
+        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -518,7 +516,7 @@ class ProfileView extends GetView<ProfileController> {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.amber.withOpacity(0.5)),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.5)),
             ),
             child: const Icon(Icons.token, color: Colors.amber, size: 24),
           ),

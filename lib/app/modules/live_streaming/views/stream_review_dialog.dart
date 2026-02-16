@@ -25,7 +25,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Colors.black.withOpacity(0.9),
+        color: Colors.black.withValues(alpha: 0.9),
         borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: AnimatedSwitcher(
@@ -117,7 +117,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
             hintText: "Write you complain here",
             hintStyle: const TextStyle(color: Colors.white38),
             filled: true,
-            fillColor: Colors.white.withOpacity(0.05),
+            fillColor: Colors.white.withValues(alpha: 0.05),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
               borderSide: const BorderSide(color: Colors.white24),
@@ -143,8 +143,8 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
                   selectedCategory = val ? cat : null;
                 });
               },
-              backgroundColor: Colors.white.withOpacity(0.1),
-              selectedColor: Colors.blueAccent.withOpacity(0.3),
+              backgroundColor: Colors.white.withValues(alpha: 0.1),
+              selectedColor: Colors.blueAccent.withValues(alpha: 0.3),
               labelStyle: TextStyle(color: isSelected ? Colors.blueAccent : Colors.black),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               side: BorderSide(color: isSelected ? Colors.blueAccent : Colors.white24),
@@ -200,7 +200,7 @@ class _StreamReviewDialogState extends State<StreamReviewDialog> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 24),
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.05),
+          color: Colors.white.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(color: Colors.white10),
         ),

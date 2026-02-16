@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import '../controllers/notification_controller.dart';
 import '../../../data/models/notification_model.dart';
 import '../../../core/theme/app_colors.dart';
-import 'package:intl/intl.dart';
 
 class NotificationView extends GetView<NotificationController> {
   const NotificationView({super.key});
@@ -90,7 +89,7 @@ class NotificationView extends GetView<NotificationController> {
             // Avatar
             CircleAvatar(
               radius: 24,
-              backgroundColor: _getTypeColor(notification.type).withOpacity(0.2),
+              backgroundColor: _getTypeColor(notification.type).withValues(alpha: 0.2),
               child: Icon(_getTypeIcon(notification.type), color: _getTypeColor(notification.type)),
             ),
             const SizedBox(width: 12),
@@ -113,7 +112,7 @@ class NotificationView extends GetView<NotificationController> {
                     notification.body,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 13),
+                    style: TextStyle(color: Colors.white.withValues(alpha: 0.6), fontSize: 13),
                   ),
                 ],
               ),
@@ -134,7 +133,7 @@ class NotificationView extends GetView<NotificationController> {
                   ),
                 // Text(
                 //   DateFormat('d MMM').format(notification.createdAt),
-                //   style: TextStyle(color: Colors.white.withOpacity(0.4), fontSize: 10),
+                //   style: TextStyle(color: Colors.white.withValues(alpha: 0.4), fontSize: 10),
                 // )
               ],
             )

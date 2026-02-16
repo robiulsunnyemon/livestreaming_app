@@ -4,7 +4,7 @@ import '../controllers/auth_controller.dart';
 import '../../../core/theme/app_colors.dart';
 
 class OtpView extends GetView<AuthController> {
-  const OtpView({Key? key}) : super(key: key);
+  const OtpView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +112,7 @@ class OtpView extends GetView<AuthController> {
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28)),
                     elevation: 8,
-                    shadowColor: AppColors.primary.withOpacity(0.5),
+                    shadowColor: AppColors.primary.withValues(alpha: 0.5),
                   ),
                   child: controller.isLoading.value
                       ? const CircularProgressIndicator(color: Colors.white)

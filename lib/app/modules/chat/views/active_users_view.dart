@@ -223,7 +223,7 @@ class ActiveUsersView extends GetView<ActiveUsersController> {
         ],
       ),
       title: Text(
-        user.fullName ?? "User",
+        user.fullName,
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 16,

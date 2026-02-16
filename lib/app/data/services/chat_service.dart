@@ -28,7 +28,7 @@ class ChatService {
       }
       return [];
     } catch (e) {
-      print("Error fetching active users: $e");
+
       return [];
     }
   }
@@ -54,7 +54,7 @@ class ChatService {
         return [];
       }
     } catch (e) {
-      print("Error fetching chat history: $e");
+
       return [];
     }
   }
@@ -78,7 +78,7 @@ class ChatService {
       }
       return null;
     } catch (e) {
-      print("Error uploading chat image: $e");
+
       return null;
     }
   }
@@ -103,7 +103,7 @@ class ChatService {
       }
       return [];
     } catch (e) {
-      print("Error fetching conversations: $e");
+
       return [];
     }
   }
@@ -128,7 +128,7 @@ class ChatService {
       }
       return [];
     } catch (e) {
-      print("Error searching users: $e");
+
       return [];
     }
   }

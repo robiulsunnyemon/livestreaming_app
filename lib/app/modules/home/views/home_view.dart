@@ -102,7 +102,7 @@ class HomeView extends GetView<HomeController> {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: controller.filters.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 12),
+                  separatorBuilder: (_, _) => const SizedBox(width: 12),
                   itemBuilder: (context, index) {
                     final filter = controller.filters[index];
                     return Obx(() {
@@ -217,7 +217,7 @@ class HomeView extends GetView<HomeController> {
           ),
           boxShadow: [
              BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -244,8 +244,8 @@ class HomeView extends GetView<HomeController> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.1),
-                    Colors.black.withOpacity(0.8),
+                    Colors.black.withValues(alpha: 0.1),
+                    Colors.black.withValues(alpha: 0.8),
                   ],
                 ),
               ),
@@ -354,9 +354,9 @@ class HomeView extends GetView<HomeController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${stream.hostFirstName ?? ''} ${stream.hostLastName ?? ''}".trim().isEmpty 
+                              "${stream.hostFirstName } ${stream.hostLastName}".trim().isEmpty
                                   ? "Unknown Host" 
-                                  : "${stream.hostFirstName ?? ''} ${stream.hostLastName ?? ''}",
+                                  : "${stream.hostFirstName } ${stream.hostLastName}",
                               style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                             ),
                             Text(
@@ -376,7 +376,7 @@ class HomeView extends GetView<HomeController> {
                   Container(
                     height: 6,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Row(
@@ -394,7 +394,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                             ),
                           ),
-                        if (shady! > 0)
+                        if (shady > 0)
                           Expanded(
                             flex: shady.toInt(),
                              child: Container(

@@ -35,7 +35,7 @@ class StreamingService {
         },
       );
 
-      print("response stream service ${response.statusCode}, ${response.body}");
+
 
       if (response.statusCode == 201) {
         return jsonDecode(response.body);
@@ -60,8 +60,6 @@ class StreamingService {
         },
       );
 
-      print(response.statusCode);
-      print(response.body);
 
       if (response.statusCode == 200) {
         return jsonDecode(response.body);
@@ -185,7 +183,7 @@ class StreamingService {
           'accept': 'application/json'
         },
       );
-      print("Stop stream response: ${response.statusCode}");
+
     } catch (e) {
       print("Error stopping stream: $e");
     }
@@ -226,7 +224,7 @@ class StreamingService {
         return [];
       }
     } catch (e) {
-      print("Error fetching streams: $e");
+
       return [];
     }
   }
@@ -243,7 +241,7 @@ class StreamingService {
         return [];
       }
     } catch (e) {
-      print("Error fetching category streams: $e");
+
       return [];
     }
   }
@@ -260,7 +258,7 @@ class StreamingService {
         return [];
       }
     } catch (e) {
-      print("Error fetching free streams: $e");
+
       return [];
     }
   }
@@ -278,7 +276,7 @@ class StreamingService {
         return [];
       }
     } catch (e) {
-      print("Error fetching premium streams: $e");
+
       return [];
     }
   }
@@ -294,7 +292,7 @@ class StreamingService {
         return [];
       }
     } catch (e) {
-      print("Error searching streams: $e");
+
       return [];
     }
   }

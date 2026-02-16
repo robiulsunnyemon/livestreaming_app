@@ -5,7 +5,7 @@ import '../../../core/theme/app_colors.dart';
 import '../../../routes/app_pages.dart';
 
 class WithdrawToView extends GetView<FinanceController> {
-  const WithdrawToView({Key? key}) : super(key: key);
+  const WithdrawToView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +83,7 @@ class WithdrawToView extends GetView<FinanceController> {
     return Container(
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.05),
+        color: Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
@@ -91,7 +91,7 @@ class WithdrawToView extends GetView<FinanceController> {
         leading: Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(0.05),
+            color: Colors.white.withValues(alpha: 0.05),
             shape: BoxShape.circle,
           ),
           child: Icon(icon, color: Colors.white70),

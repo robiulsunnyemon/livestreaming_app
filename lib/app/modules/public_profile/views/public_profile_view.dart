@@ -155,7 +155,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
     );
   }
 
-  Widget _buildModernHeader(user) {
+  Widget _buildModernHeader(Map user) {
     return SizedBox(
       height: 420,
       child: Stack(
@@ -178,7 +178,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.2),
+                    Colors.black.withValues(alpha: 0.2),
                     AppColors.background,
                   ],
                 ),
@@ -247,7 +247,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
       decoration: BoxDecoration(
         color: const Color(0xFF13131D),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.05)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
       ),
       child: Column(
         children: [
@@ -274,7 +274,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                     gradient: const LinearGradient(colors: [Color(0xFF00FF99), Color(0xFF00FF77)]),
                     borderRadius: BorderRadius.circular(4),
                     boxShadow: [
-                      BoxShadow(color: const Color(0xFF00FF99).withOpacity(0.3), blurRadius: 8, offset: const Offset(0, 2))
+                      BoxShadow(color: const Color(0xFF00FF99).withValues(alpha: 0.3), blurRadius: 8, offset: const Offset(0, 2))
                     ],
                   ),
                 ),
@@ -310,7 +310,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                 margin: const EdgeInsets.only(right: 12),
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
                 decoration: BoxDecoration(
-                  color: isSelected ? const Color(0xFF3333FF) : Colors.white.withOpacity(0.05),
+                  color: isSelected ? const Color(0xFF3333FF) : Colors.white.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Text(
@@ -347,7 +347,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
         crossAxisSpacing: 16,
         mainAxisSpacing: 16,
       ),
-      itemCount: (streams as List).length,
+      itemCount: (streams).length,
       itemBuilder: (context, index) {
         final stream = streams[index];
         final thumbnailUrl = AuthService.getFullUrl(stream['thumbnail'] ?? "");
@@ -366,7 +366,7 @@ class PublicProfileView extends GetView<PublicProfileController> {
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
-                      colors: [Colors.transparent, Colors.black.withOpacity(0.8)],
+                      colors: [Colors.transparent, Colors.black.withValues(alpha: 0.8)],
                     ),
                   ),
                 ),

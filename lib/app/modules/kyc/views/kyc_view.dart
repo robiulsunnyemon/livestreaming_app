@@ -69,9 +69,9 @@ class KYCView extends GetView<KYCController> {
         height: 190,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0.05),
+          color: Colors.white.withValues(alpha: 0.05),
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: Colors.white.withOpacity(0.1), width: 1),
+          border: Border.all(color: Colors.white.withValues(alpha: 0.1), width: 1),
         ),
         child: imagePath.isEmpty
             ? Column(
@@ -80,7 +80,7 @@ class KYCView extends GetView<KYCController> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.blueAccent.withOpacity(0.1),
+                      color: Colors.blueAccent.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
                     child: const Icon(Icons.add_a_photo_outlined, color: Colors.blueAccent, size: 32),
@@ -88,7 +88,7 @@ class KYCView extends GetView<KYCController> {
                   const SizedBox(height: 12),
                   Text(
                     label,
-                    style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 14),
+                    style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 14),
                   ),
                 ],
               )
@@ -112,7 +112,7 @@ class KYCView extends GetView<KYCController> {
         borderRadius: BorderRadius.circular(30),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFF2E3FE7).withOpacity(0.3),
+            color: const Color(0xFF2E3FE7).withValues(alpha: 0.3),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

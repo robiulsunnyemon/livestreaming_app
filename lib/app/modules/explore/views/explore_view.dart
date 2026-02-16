@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import '../../../data/services/auth_service.dart';
 import '../controllers/explore_controller.dart';
 import '../../../data/models/live_stream_model.dart';
-import '../../../routes/app_pages.dart';
 import '../../../core/theme/app_colors.dart';
 
 class ExploreView extends GetView<ExploreController> {
@@ -152,7 +151,7 @@ class ExploreView extends GetView<ExploreController> {
           ),
           boxShadow: [
              BoxShadow(
-              color: Colors.black.withOpacity(0.3),
+              color: Colors.black.withValues(alpha: 0.3),
               blurRadius: 10,
               offset: const Offset(0, 5),
             ),
@@ -179,8 +178,8 @@ class ExploreView extends GetView<ExploreController> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black.withOpacity(0.1),
-                    Colors.black.withOpacity(0.8),
+                    Colors.black.withValues(alpha: 0.1),
+                    Colors.black.withValues(alpha: 0.8),
                   ],
                 ),
               ),
@@ -290,9 +289,9 @@ class ExploreView extends GetView<ExploreController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "${stream.hostFirstName ?? ''} ${stream.hostLastName ?? ''}".trim().isEmpty 
+                              "${stream.hostFirstName} ${stream.hostLastName }".trim().isEmpty
                                   ? "Unknown Host" 
-                                  : "${stream.hostFirstName ?? ''} ${stream.hostLastName ?? ''}",
+                                  : "${stream.hostFirstName } ${stream.hostLastName}",
                               style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12),
                             ),
                             Text(
@@ -312,7 +311,7 @@ class ExploreView extends GetView<ExploreController> {
                   Container(
                     height: 6,
                     decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.3),
+                      color: Colors.grey.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(3),
                     ),
                     child: Row(

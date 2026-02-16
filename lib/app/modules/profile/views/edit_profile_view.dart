@@ -17,7 +17,7 @@ class EditProfileView extends GetView<EditProfileController> {
           icon: Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.05),
+              color: Colors.white.withValues(alpha: 0.05),
               shape: BoxShape.circle,
             ),
             child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 16),
@@ -176,7 +176,7 @@ class EditProfileView extends GetView<EditProfileController> {
       decoration: BoxDecoration(
         color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withOpacity(0.1)),
+        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
       ),
       child: TextField(
         controller: ctrl,
@@ -204,7 +204,7 @@ class EditProfileView extends GetView<EditProfileController> {
           decoration: BoxDecoration(
             color: AppColors.surface,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: TextField(
             controller: ctrl,
@@ -234,7 +234,7 @@ class EditProfileView extends GetView<EditProfileController> {
             decoration: BoxDecoration(
               color: AppColors.surface,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.white.withOpacity(0.1)),
+              border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
             ),
             child: TextField(
               controller: ctrl,
@@ -266,7 +266,7 @@ class EditProfileView extends GetView<EditProfileController> {
           decoration: BoxDecoration(
             color: const Color(0xFF161621),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.white.withOpacity(0.1)),
+            border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
           ),
           child: Obx(() => DropdownButtonHideUnderline(
                 child: DropdownButton<String>(

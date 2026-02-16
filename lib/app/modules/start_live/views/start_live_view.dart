@@ -40,10 +40,10 @@ class StartLiveView extends GetView<StartLiveController> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.3),
+                  Colors.black.withValues(alpha: 0.3),
                   Colors.transparent,
-                  Colors.black.withOpacity(0.6),
-                  Colors.black.withOpacity(0.9),
+                  Colors.black.withValues(alpha: 0.6),
+                  Colors.black.withValues(alpha: 0.9),
                 ],
                 stops: const [0.0, 0.4, 0.7, 1.0],
               ),
@@ -63,7 +63,7 @@ class StartLiveView extends GetView<StartLiveController> {
                     GestureDetector(
                       onTap: () => Get.back(),
                       child: CircleAvatar(
-                        backgroundColor: Colors.redAccent.withOpacity(0.8),
+                        backgroundColor: Colors.redAccent.withValues(alpha: 0.8),
                         radius: 18,
                         child: const Icon(Icons.close, color: Colors.white, size: 20),
                       ),
@@ -73,9 +73,9 @@ class StartLiveView extends GetView<StartLiveController> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5),
+                        color: Colors.black.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey.withOpacity(0.3)),
+                        border: Border.all(color: Colors.grey.withValues(alpha: 0.3)),
                       ),
                       child: Row(
                         children: const [
@@ -88,7 +88,7 @@ class StartLiveView extends GetView<StartLiveController> {
 
                     // Camera Switch Button (Placeholder action)
                     CircleAvatar(
-                      backgroundColor: Colors.black.withOpacity(0.4),
+                      backgroundColor: Colors.black.withValues(alpha: 0.4),
                       radius: 18,
                       child: const Icon(Icons.cameraswitch_outlined, color: Colors.white, size: 20),
                     ),
@@ -105,7 +105,7 @@ class StartLiveView extends GetView<StartLiveController> {
               width: double.infinity,
               padding: const EdgeInsets.fromLTRB(20, 20, 20, 40),
               decoration: BoxDecoration(
-                color: AppColors.background.withOpacity(0.95), // Dark background matching design
+                color: AppColors.background.withValues(alpha: 0.95), // Dark background matching design
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(24),
                   topRight: Radius.circular(24),
@@ -352,7 +352,7 @@ class StartLiveView extends GetView<StartLiveController> {
             Expanded(
               child: ListView.separated(
                 itemCount: controller.categories.length,
-                separatorBuilder: (_, __) => Divider(color: Colors.grey.shade800),
+                separatorBuilder: (_, _) => Divider(color: Colors.grey.shade800),
                 itemBuilder: (context, index) {
                   final cat = controller.categories[index];
                   return ListTile(
